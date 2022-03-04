@@ -17,11 +17,12 @@ class CreateDuplicadosTable extends Migration
             $table->id();
             $table->string('numero', 10);
             //$table->primary('numero');
-            $table->unsignedBigInteger('id_afocat');
-            $table->foreign('id_afocat')->references('id')->on('afocats')->onUpdate('cascade')->onDelete('cascade');
             $table->date('emision');
             $table->time('hora');
             $table->float('monto');
+
+            $table->unsignedBigInteger('id_afocat');
+            $table->foreign('id_afocat')->references('id')->on('afocats');
             $table->timestamps();
         });
     }

@@ -32,6 +32,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/getempresa', 'EmpresaController@getEmpresa')->name('getempresa');
     Route::resource('/allempresa', 'EmpresaController');
 
+    /**Afiliados**/
+    Route::get('/afiliaciones', 'AfiliacionesController@index')->name('afiliaciones');
+    Route::get('/getafiliaciones', 'AfiliacionesController@getAfiliaciones')->name('getafiliaciones');
+    Route::resource('/allafiliaciones', 'AfiliacionesController');
+
     Route::get('/vehiculo', 'VehiculoController@index')->name('vehiculo');
     Route::get('/getvehiculo', 'VehiculoController@getVehiculo')->name('getvehiculo');
     Route::resource('/allvehiculo', 'VehiculoController');
@@ -39,4 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     //busquedas
     Route::post('/buscar-dni','VehiculoController@busqueda');
-});
+});Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+

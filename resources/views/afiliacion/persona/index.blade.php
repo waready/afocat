@@ -209,7 +209,8 @@
 
 @endsection
 @push('scripts')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+{{-- 
+<script src="https://unpkg.com/@coreui/coreui@3.4.0/dist/js/coreui.bundle.min.js"></script> --}}
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
@@ -337,8 +338,9 @@
                     contentType: false,
                     processData: false,
                     success: function(data) {
-                        $('#modal-agregar-usuario').modal('hide');
-                       // spinner.hide();
+                        //$('#modal-agregar-usuario').modal('hide');
+                        $('#modal-agregar-usuario').modal('hide')
+                 
                         if(data.status)
                         {
                             dt.ajax.reload();

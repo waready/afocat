@@ -17,10 +17,10 @@ class CreateVehiculosTable extends Migration
             $table->id();
             $table->string('placa', 10);
             //$table->primary('placa');
-            $table->unsignedBigInteger('id_persona')->nullable();
-            $table->foreign('id_persona')->references('id')->on('personas')->onUpdate('cascade')->onDelete('cascade');
-            $table->unsignedBigInteger('id_empresa')->nullable();
-            $table->foreign('id_empresa')->references('id')->on('empresas')->onUpdate('cascade')->onDelete('cascade');
+            // $table->unsignedBigInteger('id_persona')->nullable();
+            // $table->foreign('id_persona')->references('id')->on('personas')->onUpdate('cascade')->onDelete('cascade');
+            // $table->unsignedBigInteger('id_empresa')->nullable();
+            // $table->foreign('id_empresa')->references('id')->on('empresas')->onUpdate('cascade')->onDelete('cascade');
             $table->string('marca');
             $table->string('modelo');
             $table->string('color')->nullable();
@@ -31,6 +31,8 @@ class CreateVehiculosTable extends Migration
             $table->string('uso');
             $table->string('serie')->nullable();
             $table->string('motor');
+            $table->unsignedBigInteger('id_afiliado');
+            $table->foreign('id_afiliado')->references('id')->on('afiliaciones');
             $table->timestamps();
         });
     }

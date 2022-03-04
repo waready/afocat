@@ -24,22 +24,31 @@ class VehiculoController extends Controller
 
     public function busqueda (Request $request){
 
-        if ($request->tipo == "ruc"){
-            $message = DB::table('empresas as em')
-            ->select('em.*')
-            ->where('em.ruc',$request->valor)
-            ->first();
-            $status = 1;
-        }else if ($request->tipo == "dni"){
-            $message = DB::table('personas as pe')
-            ->select('pe.*')
-            ->where('pe.dni',$request->valor)
-            ->first();
-            $status = 2;
-        }
+        // if ($request->tipo == "ruc"){
+        //     $message = DB::table('empresas as em')
+        //     ->select('em.*')
+        //     ->where('em.ruc',$request->valor)
+        //     ->first();
+        //     $status = 1;
+        // }else if ($request->tipo == "dni"){
+        //     $message = DB::table('personas as pe')
+        //     ->select('pe.*')
+        //     ->where('pe.dni',$request->valor)
+        //     ->first();
+        //     $status = 2;
+        // }
+
+        $message = DB::table('afiliaciones as af')
+            ->select('af.*');
+            if ($request->tipo == "ruc")
+                $message->where('af.ruc',$request->valor);
+            if ($request->tipo == "dni")
+                $message->where('af.dni',$request->valor);
+
+         $message= $message->first();
+
         $response = array(
             "message"=>$message,
-            "status"=>$status
         );
 
         return response()->json($response);
@@ -69,8 +78,7 @@ class VehiculoController extends Controller
             $Vehiculo = new Vehiculo;
 
             $Vehiculo->placa = $request->placa;
-            $Vehiculo->id_persona = $request->id_persona;
-            $Vehiculo->id_empresa = $request->id_empresa;
+            $Vehiculo->id_afiliado = $request->id_afiliado;
             $Vehiculo->marca = $request->marca;
             $Vehiculo->modelo = $request->modelo;
             $Vehiculo->color = $request->color;
@@ -84,11 +92,11 @@ class VehiculoController extends Controller
             $Vehiculo->save(); 
 
         DB::commit();
-            $message = "Categoria creado correctamente.";
+            $message = "Vehiculo registrado correctamente.";
             $status = true;
         } catch (\Exception $e) {
             DB::rollback();
-            $message = "Error al crear nueva Categoria, intentelo de nuevo si el problema persiste comuniquese con el administrador.";
+            $message = "Error al registrar Vehiculo, intentelo de nuevo si el problema persiste comuniquese con el administrador.";
             $status = false;
             $error =$e;
         }

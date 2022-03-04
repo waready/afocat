@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8776d30712ef513372b562c020fa93a",
+    "content-hash": "8e4e8fd9a51e4ed9fa0eb6da14e2d707",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -880,6 +880,102 @@
                 }
             ],
             "time": "2021-10-06T17:43:30+00:00"
+        },
+        {
+            "name": "infyomlabs/laravel-generator-helpers",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/InfyOmLabs/laravel-generator-helpers.git",
+                "reference": "1fb124170e4848a047a8c5128e04f48d76ac7a99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator-helpers/zipball/1fb124170e4848a047a8c5128e04f48d76ac7a99",
+                "reference": "1fb124170e4848a047a8c5128e04f48d76ac7a99",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^7.0",
+                "php": "^7.2.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "InfyOm\\GeneratorHelpers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mitul Golakiya",
+                    "email": "me@mitul.me"
+                }
+            ],
+            "description": "Helper functions for laravel generator packages",
+            "support": {
+                "issues": "https://github.com/InfyOmLabs/laravel-generator-helpers/issues",
+                "source": "https://github.com/InfyOmLabs/laravel-generator-helpers/tree/v2.0.0"
+            },
+            "time": "2020-08-11T09:34:55+00:00"
+        },
+        {
+            "name": "infyomlabs/laravel-ui-coreui",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/InfyOmLabs/laravel-ui-coreui.git",
+                "reference": "eb0cd576e66f2cf47e67499f82604533624c4558"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-ui-coreui/zipball/eb0cd576e66f2cf47e67499f82604533624c4558",
+                "reference": "eb0cd576e66f2cf47e67499f82604533624c4558",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^7.0",
+                "infyomlabs/laravel-generator-helpers": "^2.0",
+                "laravel/ui": "^2.0",
+                "php": "^7.2.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "InfyOm\\CoreUIPreset\\CoreUIPresetServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "InfyOm\\CoreUIPreset\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mitul Golakiya",
+                    "email": "me@mitul.me"
+                }
+            ],
+            "description": "Laravel frontend preset for CoreUI Theme",
+            "keywords": [
+                "coreui",
+                "laravel",
+                "preset"
+            ],
+            "support": {
+                "issues": "https://github.com/InfyOmLabs/laravel-ui-coreui/issues",
+                "source": "https://github.com/InfyOmLabs/laravel-ui-coreui/tree/master"
+            },
+            "time": "2020-09-02T06:31:25+00:00"
         },
         {
             "name": "laravel/framework",

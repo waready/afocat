@@ -239,7 +239,6 @@
 
 @endsection
 @push('scripts')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
@@ -272,15 +271,8 @@
                         $("#nombre").val("NO SE ENCONTRO CLIENTE");
                     }else{
                         $("#nombre").val(data.message.nombre);
-                        if(data.status == 2){
-                            var fieldHTML  = '<div><input type="hidden" name="id_persona" value="'+data.message.id+'"/> </div>';
-                            $('#dato_id').append(fieldHTML);
-                        }
-                        else if(data.status == 1){
-                            var fieldHTML  = '<div><input type="hidden" name="id_empresa" value="'+data.message.id+'"/> </div>';
-                            $('#dato_id').append(fieldHTML);
-                        }
-                        
+                        var fieldHTML  = '<div><input type="hidden" name="id_afiliado" value="'+data.message.id+'"/> </div>';
+                        $('#dato_id').append(fieldHTML);
                     }
                 }
             });
