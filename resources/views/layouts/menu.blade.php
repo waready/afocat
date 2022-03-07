@@ -24,7 +24,7 @@
     </a>
 </li>
 <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link c-active" href="{{ route('home') }}">
+    <a class="c-sidebar-nav-link c-active" href="{{ route('accidente') }}">
         <i class="c-sidebar-nav-icon cil-shield-alt "></i>Siniestros
     </a>
 </li>

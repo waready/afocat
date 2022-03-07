@@ -46,7 +46,33 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+
+            $Producto = new Producto;
+            $Producto->codigo = $request->codigo;
+            $Producto->nombre = $request->nombre;
+            $Producto->numero_certificado = $request->numero_certificado;
+            $Producto->abreviatura = $request->abreviatura;
+            $Producto->precio_unitario = $request->precio_unitario;
+            $Producto->save(); 
+
+        DB::commit();
+            $message = "Producto creado correctamente.";
+            $status = true;
+        } catch (\Exception $e) {
+            DB::rollback();
+            $message = "Error al crear nuevo Producto, intentelo de nuevo si el problema persiste comuniquese con el administrador.";
+            $status = false;
+            $error =$e;
+        }
+        $response = array(
+            "message"=>$message,
+            "status"=>$status,
+            "error"=>isset($error) ? $error:''
+        );
+
+        return response()->json($response);
     }
 
     /**
@@ -68,7 +94,9 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $Producto = Producto::where("id",$id)->first();
+
+         return response()->json($Producto);
     }
 
     /**
@@ -80,7 +108,32 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+
+            $Producto = Producto::find($id);
+            $Producto->codigo = $request->editar_codigo;
+            $Producto->nombre = $request->editar_nombre;
+            $Producto->numero_certificado = $request->editar_numero_certificado;
+            $Producto->abreviatura = $request->editar_abreviatura;
+            $Producto->precio_unitario = $request->editar_precio_unitario;
+            $Producto->save();
+
+        DB::commit();
+            $message = 'Producto actualizado correctamente';
+            $status = true;
+        } catch (\Exception $e) {
+            DB::rollback();
+            $message = 'Error al actualizar Producto, intentelo de nuevo si el problema persiste comuniquese con el administrador.';
+            $status = false;
+            $error = $e;
+        }
+        $response = array(
+            "message"=>$message,
+            "status"=>$status,
+            "error"=>isset($error) ? $error:''
+        );
+        return response()->json($response);
     }
 
     /**

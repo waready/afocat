@@ -4,25 +4,20 @@
 @push('styles')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 @endpush
 @section('content')
 <div class="container">
-    <div class="card text-center">
-        <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item"><a class="nav-link active" aria-current="true" href="#">Certificados de Afocat</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Roles</a></li>
-                <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Permisos</a></li>
-                <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Permisos</a></li>
-            </ul>
-            
+    <div class="card">
+        <div class="card-header">Accidentes
+            <button type="button" id="agregar-responsable-carrera" class="ml-2 btn btn-info btn-xl" data-toggle="modal" data-target="#modal-agregar-usuario">
+                <i class="fa fa-plus"></i> Agregar
+            </button>   
         </div>
         
         <div class="card-body">
-            <button type="button" id="agregar-responsable-carrera" class="btn btn-info btn-xl" data-toggle="modal" data-target="#modal-agregar-usuario">
-                <i class="fa fa-plus"></i> Agregar
-            </button>   
+       
             <table width="100%"
                 class="table table-responsive"
                 cellspacing="0"
@@ -30,11 +25,11 @@
             >
                 <thead>
                     <tr>
-                        <th>{{ __("Codigo") }}</th>
-                        <th>{{ __("Nombre") }}</th>
-                        <th>{{ __("Numero Certificado") }}</th>
-                        <th>{{ __("Abreviatura") }}</th>
-                        <th>{{ __("Precio Unitario") }}</th>
+                        <th>{{ __("Ocurrencia") }}</th>
+                        <th>{{ __("Notificacion") }}</th>
+                        <th>{{ __("Ubicaion") }}</th>
+                        <th>{{ __("zona") }}</th>
+                        <th>{{ __("Placa") }}</th>
                         <th>{{ __("Opciones") }}</th>
                     </tr>
                 </thead>
@@ -46,7 +41,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white">
-                <h5 class="modal-title">Editar Nombre Tipo Examen</h5>
+                <h5 class="modal-title">Editar Accidente</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -56,33 +51,32 @@
                 <input type="hidden" name="_method" value="PUT">
                 <div class="container-fluid">
                     <div class="item form-group">
-                        <label class="col-form-label col-md-4 col-sm-3 label-align">Codigo</label>
+                        <label class="col-form-label col-md-4 col-sm-3 label-align">Ocurrencia</label>
                         <div class="col-md-12 col-sm-12 ">
-                            <input type="text" class="form-control" name="editar_codigo" id="editar_codigo" required placeholder="">
+                            <input type="date" class="form-control" name="editar_ocurrencia" id="editar_ocurrencia" required placeholder="">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-4 col-sm-3 label-align">Nombres</label>
+                        <label class="col-form-label col-md-4 col-sm-3 label-align">Notificacion</label>
                         <div class="col-md-12 col-sm-12 ">
-                            <input type="text" class="form-control" name="editar_nombre" id="editar_nombre" required placeholder="">
+                            <input type="date" class="form-control" name="editar_notificacion" id="editar_notificacion" required placeholder="">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-4 col-sm-3 label-align">Numero Certificado</label>
+                        <label class="col-form-label col-md-4 col-sm-3 label-align">Ubicaion</label>
                         <div class="col-md-12 col-sm-12 ">
-                            <input type="text" class="form-control" name="editar_numero_certificado" id="editar_numero_certificado"  placeholder="">
+                            <input type="text" class="form-control" name="editar_ubicaion" id="editar_ubicaion"  placeholder="">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-4 col-sm-3 label-align">Abreviatura</label>
+                        <label class="col-form-label col-md-4 col-sm-3 label-align">Placa</label>
                         <div class="col-md-12 col-sm-12 ">
-                            <input type="text" class="form-control" name="editar_abreviatura" id="editar_abreviatura"  placeholder="">
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-4 col-sm-3 label-align">Precio Unitario</label>
-                        <div class="col-md-12 col-sm-12 ">
-                            <input type="number" class="form-control" name="editar_precio_unitario" id="editar_precio_unitario"  placeholder="">
+                            <select style="width: 100%" class="form-control carrera seleccion2" name="editar_id_vehiculo" id="editar_id_vehiculo" required>
+                                <option value="">Seleccionar---</option>
+                                @foreach($Vehiculos as $tipo)
+                                    <option value="{{$tipo->id}}">{{$tipo->placa}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -98,7 +92,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title">Agregar Nuevo concepto de pago</h5>
+                <h5 class="modal-title">Registrar accidentes</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -108,33 +102,32 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Codigo</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Ocurrencia</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="codigo" id="codigo" required placeholder="">
+                                <input type="text" class="form-control" name="ocurrencia" id="ocurrencia" required placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Nombres</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Notificacion</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="nombre" id="nombre" required placeholder="">
+                                <input type="text" class="form-control" name="notificacion" id="notificacion" required placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Numero Certificado</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Ubicaion</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="numero_certificado" id="numero_certificado"  placeholder="">
+                                <input type="text" class="form-control" name="ubicaion" id="ubicaion"  placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Abreviatura</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Placa</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="abreviatura" id="abreviatura"  placeholder="">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Precio Unitario</label>
-                            <div class="col-md-12 col-sm-12 ">
-                                <input type="number" class="form-control" name="precio_unitario" id="precio_unitario"  placeholder="">
+                                <select style="width: 100%" class="form-control carrera seleccion2" name="id_vehiculo" id="id_vehiculo" required>
+                                    <option value="">Seleccionar---</option>
+                                    @foreach($Vehiculos as $tipo)
+                                        <option value="{{$tipo->id}}">{{$tipo->placa}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -149,26 +142,31 @@
 </div>
 @endsection
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
     jQuery(document).ready(function() {
+        $('.seleccion2').select2({
+        placeholder: "Seleccione una opción",
+    });
+
         dt = jQuery("#afocat-table").DataTable({
                 pageLength: 15,
                 lengthMenu: [15, 25, 50, 75, 100 ],
                 processing: true,
                 
-                ajax: '{{ route('getproducto') }}',
+                ajax: '{{ route('getaccidente') }}',
                 
                 language: {
                     url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
                 },
                 columns: [
-                    {data: 'codigo'},
-                    {data: 'nombre'},
-                    {data: 'numero_certificado'},
-                    {data: 'abreviatura'},
-                    {data: 'precio_unitario'},
+                    {data: 'ocurrencia'},
+                    {data: 'notificaion'},
+                    {data: 'ubicacion'},
+                    {data: 'zona'},
+                    {data: 'placa'},
                     {data: 'Opciones'}
                 ],
                 rowCallback:function(row, data,index){ 

@@ -62,6 +62,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/ventas/{hash}', 'PagoController@imprimirVenta');
 
+    /****SINIESTROS*****/
+    Route::get('/accidente', 'AccidenteController@index')->name('accidente');
+    Route::get('/getaccidente', 'AccidenteController@getAccidente')->name('getaccidente');
+    Route::resource('/allaccidente', 'AccidenteController');
 
 });Auth::routes();
 
