@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Pago;
-use App\Vehiculo;
-use App\Afiliado;
 use App\Producto;
 use App\Afocat;
 use Illuminate\Support\Facades\DB;
-use chillerlan\QRCode\QRCode;
 
-class PagoController extends Controller
+class ProductoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,45 +15,19 @@ class PagoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        return view('ventas.index');
-    }
-
-
-    public function getpago()
     {
-      $pagos = DB::table('pagos as pa')
-      ->select('pa.*','pro.nombre as producto','afi.id_tipo_afiliacion','afi.nombre','afi.paterno','afi.materno',DB::raw('"" as Opciones'))
-      //->join('vehiculos as ve', 've.id', 'af.id_vehiculo')
-      ->join('afiliados as afi','afi.id','pa.id_afiliado')
-      ->join('productos as pro','pro.id','pa.id_producto')
-      ->get();
-      
-      return \DataTables::of($pagos)->make('true');
+        return view('configuracion.producto.index');
     }
 
-    public function imprimirVenta($hash)
+    public function getProducto()
     {
-        $venta = Pago::where('hash', $hash)->first();
-        $vehiculo = Vehiculo::where('id', $venta->id_vehiculo)->first();
-        $afiliado = Afiliado::where('id', $venta->id_afiliado)->first();
-        $producto = Producto::where('id', $venta->id_producto)->first();
-        $afocat = Afocat::where('id_pago',$venta->id)->first();
-        if (!isset($venta)) {
-          abort(404, 'No se ha encontrado la venta');
-        }
-        $qrcode = (new QRCode())->render(
-          url('/ventas/' . $venta->hash)
-        );
-        return view('ventas.ticket', [
-          'venta' => $venta,
-          'afiliado' => $afiliado,
-          'vehiculo' => $vehiculo,
-          'producto' => $producto,
-          'qrcode' => $qrcode,
-          'afocat' =>  $afocat
-        ]);
+        $producto = DB::table('productos as pro')
+        ->select('pro.*' ,DB::raw('"" as Opciones'))
+        ->get();
+
+        return \DataTables::of($producto)->make('true');
     }
+
     /**
      * Show the form for creating a new resource.
      *

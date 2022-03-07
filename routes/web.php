@@ -37,18 +37,31 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/getafiliaciones', 'AfiliadosController@getAfiliaciones')->name('getafiliaciones');
     Route::resource('/allafiliaciones', 'AfiliadosController');
 
+    /**vehiculo**/
     Route::get('/vehiculo', 'VehiculoController@index')->name('vehiculo');
     Route::get('/getvehiculo', 'VehiculoController@getVehiculo')->name('getvehiculo');
     Route::resource('/allvehiculo', 'VehiculoController');
 
+    /**Productos**/
+    Route::get('/producto', 'ProductoController@index')->name('producto');
+    Route::get('/getproducto', 'ProductoController@getProducto')->name('getproducto');
+    Route::resource('/allproducto', 'ProductoController');
+
     /**Afocats**/
     Route::get('/afocat', 'AfocatController@index')->name('afocat');
+    Route::get('/getafocat', 'AfocatController@getafocat')->name('getafocat');
+    Route::get('/new-afocat', 'AfocatController@create')->name('new-afocat');
     Route::resource('/allafocat', 'AfocatController');
+
+    /**Ventas**/
+    Route::get('/pago', 'PagoController@index')->name('pago');
+    Route::get('/getpagos', 'PagoController@getpago')->name('getpagos');
     //busquedas
     Route::post('/buscar-dni','VehiculoController@busqueda');
     Route::post('/buscar-afiliado','AfocatController@busqueda');
 
     Route::get('/ventas/{hash}', 'PagoController@imprimirVenta');
+
 
 });Auth::routes();
 

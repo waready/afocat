@@ -11,12 +11,12 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card mt-2">
-                <div class="card-header"> LISTA DE AFOCAT 
+                <div class="card-header"> REGISTROS DE PAGOS
                    
                 </div>
 
                 <div class="card-body">
-                    <a  href="{{ route('new-afocat') }}"  class="ml-3 mt-2 btn btn-primary" style=""><i  class="fas fa-plus"></i> Registrar Afocat </a>
+                    <a  href="{{ route('new-afocat') }}"  class="ml-3 mt-2 btn btn-primary" style=""><i  class="fas fa-plus"></i> Registrar Pago </a>
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -31,15 +31,13 @@
                         >
                             <thead>
                                 <tr>
-                                    <th>{{ __("ID") }}</th>
-                                    <th>{{ __("Inicio Contrato") }}</th>
-                                    <th>{{ __("Fin Contrato") }}</th>
-                                    <th>{{ __("Años") }}</th>
-                                    <th>{{ __("Tipo afocat") }}</th>
-                                    <th>{{ __("Placa") }}</th>
-                                    <th>{{ __("Afiliado") }}</th>
-                                    <th>{{ __("Monto total") }}</th>
-                                    <th>{{ __("Monto SBS") }}</th>
+                                    <th>{{ __("Serie") }}</th>
+                                    <th>{{ __("Fecha") }}</th>
+                                    <th>{{ __("Cliente") }}</th>
+                                    <th>{{ __("Concepto") }}</th>
+                                    <th>{{ __("Monto") }}</th>
+                                    <th>{{ __("Ticket") }}</th>
+                                   
                                 </tr>
                             </thead>
                         </table>
@@ -64,29 +62,29 @@
                 lengthMenu: [15, 25, 50, 75, 100 ],
                 processing: true,
                 
-                ajax: '{{ route('getafocat') }}',
+                ajax: '{{ route('getpagos') }}',
                 
                 language: {
                     url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
                 },
                 columns: [
-                    {data: 'id'},
-                    {data: 'inicio_contrato'},
-                    {data: 'fin_contrato'},
-                    {data: 'anios'},
-                    {data: 'producto'},
-                    {data: 'placa'},
+                    // {data: 'id'},
+                    {data: 'serie'},
+                    {data: 'fecha'},
                     {data: 'nombre'},
-                    {data: 'monto_total'},
-                    {data: 'monto_sbs'}
+                    {data: 'producto'},
+                    {data: 'monto'},
+                    {data: 'Opciones'},
+                   
                 ],
                 rowCallback:function(row, data,index){ 
                     if(data.id_tipo_afiliacion == 1){
-                        $('td:eq(6)',row).html(data.nombre+" "+data.paterno+" "+data.materno) 
+                        $('td:eq(2)',row).html(data.nombre+" "+data.paterno+" "+data.materno) 
                     }
                     if(data.id_tipo_afiliacion == 2){
-                        $('td:eq(6)',row).html(data.nombre)
-                    }    
+                        $('td:eq(2)',row).html(data.nombre)
+                    }
+                    $('td:eq(5)',row).html('<a  href="http://localhost:8000/ventas/'+data.hash+'" class="btn btn-light" style=""><i  class="fas fa-print"></i></a>')    
                 }
                 
             });

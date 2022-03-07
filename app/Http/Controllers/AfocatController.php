@@ -19,21 +19,29 @@ class AfocatController extends Controller
     {
         $this->setUpFaker();
     }
-
     public function index()
+    {   
+        //return $categoria;
+        return view('afiliacion.afocat.index');
+    }
+
+    public function create()
     {   
         $Productos = Producto::all();
         //return $categoria;
-        return view('afiliacion.afocat.index',compact('Productos'));
+        return view('afiliacion.afocat.create',compact('Productos'));
     }
 
-    public function getafiliaciones()
+    public function getafocat()
     {
-      $categoria = DB::table('afiliados as afi')
-      ->select('afi.*' ,DB::raw('"" as Opciones'))
+      $afocats = DB::table('afocats as af')
+      ->select('af.*','pro.nombre as producto','ve.placa as placa','afi.id_tipo_afiliacion','afi.nombre','afi.paterno','afi.materno')
+      ->join('vehiculos as ve', 've.id', 'af.id_vehiculo')
+      ->join('afiliados as afi','afi.id','ve.id_afiliado')
+      ->join('productos as pro','pro.id','af.id_producto')
       ->get();
       
-      return \DataTables::of($categoria)->make('true');
+      return \DataTables::of($afocats)->make('true');
     }
 
     /**
@@ -41,10 +49,7 @@ class AfocatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+ 
     public function busqueda(Request $request){
 
        // return $request;
