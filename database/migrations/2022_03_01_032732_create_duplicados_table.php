@@ -21,8 +21,8 @@ class CreateDuplicadosTable extends Migration
             $table->time('hora');
             $table->float('monto');
 
-            $table->unsignedBigInteger('id_afocat');
-            $table->foreign('id_afocat')->references('id')->on('afocats');
+            // $table->unsignedBigInteger('id_afocat');
+            // $table->foreign('id_afocat')->references('id')->on('afocats');
             $table->timestamps();
         });
     }

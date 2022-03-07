@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGastosTable extends Migration
+class CreateTipoPagosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateGastosTable extends Migration
      */
     public function up()
     {
-        Schema::create('gastos', function (Blueprint $table) {
+        Schema::create('tipo_pagos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->unsignedDecimal('monto', 12, 2);//monto del gasto
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateGastosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gastos');
+        Schema::dropIfExists('tipo_pagos');
     }
 }

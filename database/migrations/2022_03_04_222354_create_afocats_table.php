@@ -15,16 +15,20 @@ class CreateAfocatsTable extends Migration
     {
         Schema::create('afocats', function (Blueprint $table) {
             $table->id();
-            $table->string('numero', 10);
-            $table->string('persona_dni', 8);
-            $table->string('vendedor',150);
-            $table->date('inicio_contrato');
-            $table->date('fin_contrato');
-            $table->date('inicio_certificado');
-            $table->date('fin_certificado');
-            $table->time('hora');
-            $table->float('monto');
-            $table->float('extraordinario')->nullable();
+       
+            $table->date('inicio_contrato');//fecha de inicio
+            $table->date('fin_contrato'); //1-2 años ?
+            $table->unsignedTinyInteger('anios')->default(0);// numero años
+            $table->time('hora'); //sistemas
+
+            $table->unsignedDecimal('monto_sbs', 12, 2);
+            $table->unsignedDecimal('monto_total', 12, 2)->default(0);
+
+            $table->unsignedBigInteger('id_producto'); // certificado afocat
+            $table->foreign('id_producto')->references('id')->on('productos');
+
+            $table->unsignedBigInteger('id_pago');
+            $table->foreign('id_pago')->references('id')->on('pagos');
 
             $table->unsignedBigInteger('id_vehiculo');
             $table->foreign('id_vehiculo')->references('id')->on('vehiculos');

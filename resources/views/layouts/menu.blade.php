@@ -21,7 +21,7 @@
                 </a>
             </li>
             <li class="c-sidebar-nav-item">
-                <a class="c-sidebar-nav-link c-active" href="{{ route('afiliaciones') }}">
+                <a class="c-sidebar-nav-link c-active" href="{{ route('afocat') }}">
                     <i class="c-sidebar-nav-icon cil-user"></i>Afocats
                 </a>
             </li>

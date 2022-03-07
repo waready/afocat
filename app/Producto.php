@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Afocat extends Model
+class Producto extends Model
 {
-    protected $table = 'afocats';
+    //
 }

@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
             'name'  => 'Student Primary',
            // 'apellidos'  => 'Secondary',
             //'dni'  => '987654321',
-            'email' => 'student@mail.com',
+            'email' => 'admin@mail.com',
             'password' =>bcrypt('987654321'),
 
         ])->assignRole('Administrador');

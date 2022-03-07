@@ -23,6 +23,8 @@ class CreateAccidentadoGastosTable extends Migration
             $table->unsignedBigInteger('id_gasto');
             $table->foreign('id_gasto')->references('id')->on('gastos');
 
+            $table->string('archivo_path')->nullable();
+
             $table->unsignedBigInteger('id_accidentado');
             $table->foreign('id_accidentado')->references('id')->on('accidentados');
 

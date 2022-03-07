@@ -33,17 +33,23 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/allempresa', 'EmpresaController');
 
     /**Afiliados**/
-    Route::get('/afiliaciones', 'AfiliacionesController@index')->name('afiliaciones');
-    Route::get('/getafiliaciones', 'AfiliacionesController@getAfiliaciones')->name('getafiliaciones');
-    Route::resource('/allafiliaciones', 'AfiliacionesController');
+    Route::get('/afiliaciones', 'AfiliadosController@index')->name('afiliaciones');
+    Route::get('/getafiliaciones', 'AfiliadosController@getAfiliaciones')->name('getafiliaciones');
+    Route::resource('/allafiliaciones', 'AfiliadosController');
 
     Route::get('/vehiculo', 'VehiculoController@index')->name('vehiculo');
     Route::get('/getvehiculo', 'VehiculoController@getVehiculo')->name('getvehiculo');
     Route::resource('/allvehiculo', 'VehiculoController');
 
-
+    /**Afocats**/
+    Route::get('/afocat', 'AfocatController@index')->name('afocat');
+    Route::resource('/allafocat', 'AfocatController');
     //busquedas
     Route::post('/buscar-dni','VehiculoController@busqueda');
+    Route::post('/buscar-afiliado','AfocatController@busqueda');
+
+    Route::get('/ventas/{hash}', 'PagoController@imprimirVenta');
+
 });Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

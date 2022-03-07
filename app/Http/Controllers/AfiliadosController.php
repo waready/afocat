@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Afiliaciones;
+use App\Afiliado;
 use App\TipoAfiliado;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class AfiliacionesController extends Controller
+class AfiliadosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +22,7 @@ class AfiliacionesController extends Controller
 
     public function getafiliaciones()
     {
-      $categoria = DB::table('afiliaciones as afi')
+      $categoria = DB::table('afiliados as afi')
       ->select('afi.*' ,DB::raw('"" as Opciones'))
       ->get();
       
@@ -51,7 +51,7 @@ class AfiliacionesController extends Controller
         DB::beginTransaction();
         try {
 
-            $afiliado = new Afiliaciones;
+            $afiliado = new Afiliado;
 
             $afiliado->dni = $request->dni;
             $afiliado->ruc = $request->ruc;
@@ -69,7 +69,7 @@ class AfiliacionesController extends Controller
             $afiliado->save(); 
 
         DB::commit();
-            $message = "Afiliado retgistrado correctamente.";
+            $message = "Afiliado registrado correctamente.";
             $status = true;
         } catch (\Exception $e) {
             DB::rollback();
@@ -105,7 +105,7 @@ class AfiliacionesController extends Controller
      */
     public function edit($id)
     {
-        $Persona = Afiliaciones::where("id",$id)->first();
+        $Persona = Afiliado::where("id",$id)->first();
 
          return response()->json($Persona);
     }
@@ -122,7 +122,7 @@ class AfiliacionesController extends Controller
         DB::beginTransaction();
         try {
 
-            $afiliado = Afiliaciones::find($id);
+            $afiliado = Afiliado::find($id);
             $afiliado->dni = $request->editar_dni;
             $afiliado->ruc = $request->editar_ruc;
             $afiliado->nombre = $request->editar_nombre;

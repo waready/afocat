@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Afiliaciones extends Model
+class Afiliado extends Model
 {
-    //
+    
 }

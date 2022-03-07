@@ -24,21 +24,7 @@ class VehiculoController extends Controller
 
     public function busqueda (Request $request){
 
-        // if ($request->tipo == "ruc"){
-        //     $message = DB::table('empresas as em')
-        //     ->select('em.*')
-        //     ->where('em.ruc',$request->valor)
-        //     ->first();
-        //     $status = 1;
-        // }else if ($request->tipo == "dni"){
-        //     $message = DB::table('personas as pe')
-        //     ->select('pe.*')
-        //     ->where('pe.dni',$request->valor)
-        //     ->first();
-        //     $status = 2;
-        // }
-
-        $message = DB::table('afiliaciones as af')
+        $message = DB::table('afiliados as af')
             ->select('af.*');
             if ($request->tipo == "ruc")
                 $message->where('af.ruc',$request->valor);
