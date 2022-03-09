@@ -25,7 +25,17 @@
 </li>
 <li class="c-sidebar-nav-item">
     <a class="c-sidebar-nav-link c-active" href="{{ route('accidente') }}">
-        <i class="c-sidebar-nav-icon cil-shield-alt "></i>Siniestros
+        <i class="c-sidebar-nav-icon cil-shield-alt "></i>Accidentes
+    </a>
+</li>
+<li class="c-sidebar-nav-item">
+    <a class="c-sidebar-nav-link c-active" href="{{ route('accidentado') }}">
+        <i class="c-sidebar-nav-icon cil-user-unfollow"></i>Accidentados
+    </a>
+</li>
+<li class="c-sidebar-nav-item">
+    <a class="c-sidebar-nav-link c-active" href="{{ route('accidente-gastos') }}">
+        <i class="c-sidebar-nav-icon cil-wallet"></i>Accidentes Gastos
     </a>
 </li>
 <li class="c-sidebar-nav-item">

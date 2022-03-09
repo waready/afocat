@@ -63,9 +63,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/ventas/{hash}', 'PagoController@imprimirVenta');
 
     /****SINIESTROS*****/
+    //accidentes
     Route::get('/accidente', 'AccidenteController@index')->name('accidente');
     Route::get('/getaccidente', 'AccidenteController@getAccidente')->name('getaccidente');
     Route::resource('/allaccidente', 'AccidenteController');
+    
+    //accidentado
+    Route::get('/accidentado', 'AccidentadoController@index')->name('accidentado');
+    Route::get('/getaccidentado', 'AccidentadoController@getAccidentado')->name('getaccidentado');
+    Route::resource('/allaccidentado', 'AccidentadoController');
+
+    //accidentes-gastos
+    Route::get('/accidente-gastos', 'AccidentadoGastoController@index')->name('accidente-gastos');
+    Route::get('/getaccidentegastos', 'AccidentadoGastoController@getaccidente')->name('getaccidentegastos');
+    Route::resource('/allaccidente-gastos', 'AccidentadoGastoController');
 
 });Auth::routes();
 

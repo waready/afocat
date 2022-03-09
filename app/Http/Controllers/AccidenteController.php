@@ -17,7 +17,8 @@ class AccidenteController extends Controller
     public function getaccidente()
     {
         $acidente = DB::table('accidentes as ac')
-        ->select('ac.*' ,DB::raw('"" as Opciones'))
+        ->select('ac.*','ve.placa',DB::raw('"" as Opciones'))
+        ->join('vehiculos as ve', 'ac.id_vehiculo','ve.id')
         ->get();
 
         return \DataTables::of($acidente)->make('true');
@@ -41,15 +42,16 @@ class AccidenteController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request;
         DB::beginTransaction();
         try {
 
             $Accidente = new Accidente;
-            $Accidente->codigo = $request->codigo;
-            $Accidente->nombre = $request->nombre;
-            $Accidente->numero_certificado = $request->numero_certificado;
-            $Accidente->abreviatura = $request->abreviatura;
-            $Accidente->precio_unitario = $request->precio_unitario;
+            $Accidente->id_vehiculo = $request->id_vehiculo;
+            $Accidente->notificacion = $request->notificacion;
+            $Accidente->ocurrencia = $request->ocurrencia;
+            $Accidente->ubicacion = $request->ubicacion;
+            $Accidente->zona = $request->zona;
             $Accidente->save(); 
 
         DB::commit();
@@ -89,9 +91,9 @@ class AccidenteController extends Controller
      */
     public function edit($id)
     {
-        $Producto = Producto::where("id",$id)->first();
+        $Accidente = Accidente::where("id",$id)->first();
 
-         return response()->json($Producto);
+         return response()->json($Accidente);
     }
 
     /**
