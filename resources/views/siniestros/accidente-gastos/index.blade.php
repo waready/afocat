@@ -17,7 +17,8 @@
         </div>
         
         <div class="card-body">
-       
+            {{-- {{ $Accidentado }}  --}}
+            {{-- {{  $TipoGasto}} --}}
             <table width="100%"
                 class="table table-responsive"
                 cellspacing="0"
@@ -75,7 +76,7 @@
                             <select style="width: 100%" class="form-control carrera seleccion2" name="editar_id_gasto" id="editar_id_gasto" required>
                                 <option value="">Seleccionar---</option>
                                 @foreach($TipoGasto as $tipo)
-                                    <option value="{{$tipo->id}}">{{$tipo->ubicacion}}</option>
+                                    <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -86,8 +87,9 @@
                             <select style="width: 100%" class="form-control carrera seleccion2" name="editar_id_accidentado" id="editar_id_accidentado" required>
                                 <option value="">Seleccionar---</option>
                                 @foreach($Accidentado as $tipo)
-                                    <option value="{{$tipo->id}}">{{$tipo->ubicacion}}</option>
+                                    <option value="{{$tipo->id}}">{{$tipo->nombres}}</option>
                                 @endforeach
+                                
                             </select>
                         </div>
                     </div>
@@ -143,7 +145,7 @@
                                 <select style="width: 100%" class="form-control carrera seleccion2" name="id_gasto" id="id_gasto" required>
                                     <option value="">Seleccionar---</option>
                                     @foreach($TipoGasto as $tipo)
-                                        <option value="{{$tipo->id}}">{{$tipo->ubicacion}}</option>
+                                        <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -154,7 +156,7 @@
                                 <select style="width: 100%" class="form-control carrera seleccion2" name="id_accidentado" id="id_accidentado" required>
                                     <option value="">Seleccionar---</option>
                                     @foreach($Accidentado as $tipo)
-                                        <option value="{{$tipo->id}}">{{$tipo->ubicacion}}</option>
+                                        <option value="{{$tipo->id}}">{{$tipo->nombres}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -202,7 +204,7 @@
                     {data: 'fecha_limite'},
                     {data: 'Gasto'},
                     {data: 'accidentado'},
-                    {data: 'path'},
+                    {data: 'archivo_path'},
                     {data: 'Opciones'}
                 ],
                 rowCallback:function(row, data,index){ 
@@ -221,7 +223,7 @@
                 $.ajax({
                     type: "GET",
                     dataType: "json",
-                    url:'allaccidentado/'+idUpdate+'/edit',
+                    url:'allaccidente-gastos/'+idUpdate+'/edit',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -250,7 +252,7 @@
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url:'allaccidentado/'+idUpdate,
+                    url:'allaccidente-gastos/'+idUpdate,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
@@ -293,7 +295,7 @@
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url:'allaccidentado',
+                    url:'allaccidente-gastos',
                     data: data,
                     contentType: false,
                     processData: false,

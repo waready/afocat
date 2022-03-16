@@ -5,6 +5,8 @@ use App\Accidente;
 use App\Accidentado;
 use App\Vehiculo;
 use App\Gasto;
+use App\AccidentadoGasto;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class AccidentadoGastoController extends Controller
@@ -18,9 +20,10 @@ class AccidentadoGastoController extends Controller
 
     public function getaccidente()
     {
-        $acidente = DB::table('accidentado-gastos as ac')
-        ->select('ac.*',DB::raw('"" as Opciones'))
-        //->join('vehiculos as ve', 'ac.id_vehiculo','ve.id')
+        $acidente = DB::table('accidentado_gastos as ac')
+        ->select('ac.*','ve.nombre as Gasto','aci.nombres as accidentado',DB::raw('"" as Opciones'))
+        ->join('gastos as ve', 'ac.id_gasto','ve.id')
+        ->join('accidentados as aci','aci.id','ac.id_accidentado')
         ->get();
 
         return \DataTables::of($acidente)->make('true');
@@ -48,12 +51,13 @@ class AccidentadoGastoController extends Controller
         DB::beginTransaction();
         try {
 
-            $Accidente = new Accidente;
-            $Accidente->id_vehiculo = $request->id_vehiculo;
-            $Accidente->notificacion = $request->notificacion;
-            $Accidente->ocurrencia = $request->ocurrencia;
-            $Accidente->ubicacion = $request->ubicacion;
-            $Accidente->zona = $request->zona;
+            $Accidente = new AccidentadoGasto;
+            $Accidente->Pagado = $request->Pagado;
+            $Accidente->Pendiente = $request->Pendiente;
+            $Accidente->archivo_path = $request->archibo_path;
+            $Accidente->fecha_limite = $request->fecha_limite;
+            $Accidente->id_accidentado = $request->id_accidentado;
+            $Accidente->id_gasto = $request->id_gasto;
             $Accidente->save(); 
 
         DB::commit();
@@ -93,7 +97,7 @@ class AccidentadoGastoController extends Controller
      */
     public function edit($id)
     {
-        $Accidente = Accidente::where("id",$id)->first();
+        $Accidente = AccidentadoGasto::where("id",$id)->first();
 
          return response()->json($Accidente);
     }
@@ -110,7 +114,7 @@ class AccidentadoGastoController extends Controller
         DB::beginTransaction();
         try {
 
-            $Accidente = Accidente::find($id);
+            $Accidente = AccidentadoGasto::find($id);
             $Accidente->codigo = $request->codigo;
             $Accidente->nombre = $request->nombre;
             $Accidente->numero_certificado = $request->numero_certificado;
