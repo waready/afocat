@@ -11,7 +11,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card mt-2">
-                <div class="card-header">Afiliado
+                <div class="card-header">Cliente Usuario
                     <button type="button" id="agregar-responsable-carrera" class="btn btn-info btn-sm ml-2" data-toggle="modal" data-target="#modal-agregar-usuario">
                         <i class="fa fa-plus"></i> Agregar
                     </button>
@@ -37,7 +37,7 @@
                                     <th>{{ __("direccion") }}</th>
                                     <th>{{ __("telefono") }}</th>
                                     <th>{{ __("email") }}</th>
-                                    <th>{{ __("nacimiento") }}</th>
+                                    {{-- <th>{{ __("nacimiento") }}</th> --}}
                                     <th>{{ __("Opciones") }}</th>
                                 </tr>
                             </thead>
@@ -174,6 +174,28 @@
                             </div>
                         </div>
                         <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">DNI</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <div class="input-group-prepend">
+                                    <input type="text" class="form-control" name="dni" id="dni" maxlength="8" required placeholder="">
+                                    {{-- <span class="input-group-text"><i class="c-sidebar-nav-icon cil-search "></i></span> --}}
+                                    <input type="button" class="btn btn-info" value="buscar" id="buscar_dni" disabled/> 
+                               </div>
+                                
+                                
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">RUC</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <div class="input-group-prepend">
+                                    <input type="text" class="form-control" name="ruc" id="ruc" maxlength="11" required placeholder="">
+                                    <input type="button" class="btn btn-info" value="buscar" id="buscar_ruc" disabled/> 
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-3 label-align">Nombres</label>
                             <div class="col-md-12 col-sm-12 ">
                                 <input type="text" class="form-control" name="nombre" id="nombre" required placeholder="">
@@ -197,18 +219,8 @@
                                 <input type="text" class="form-control" name="representante" id="representante" required placeholder="">
                             </div>
                         </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">DNI</label>
-                            <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="dni" id="dni" maxlength="8" required placeholder="">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">RUC</label>
-                            <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="ruc" id="ruc" maxlength="11" required placeholder="">
-                            </div>
-                        </div>
+                        
+                        
                         <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-3 label-align">Direccción</label>
                             <div class="col-md-12 col-sm-12 ">
@@ -284,7 +296,7 @@
                     {data: 'direccion'},
                     {data: 'telefono'},
                     {data: 'email'},
-                    {data: 'nacimiento'},
+                    // {data: 'nacimiento'},
                     {data: 'Opciones'}
                 ],
                 rowCallback:function(row, data,index){
@@ -296,7 +308,7 @@
                         $('td:eq(0)',row).html(data.nombre)
                         $('td:eq(1)',row).html(data.ruc)
                     }    
-                    $('td:eq(6)',row).html('<a class="editar-usuario" href="'+data.id+'"> <i class="fas fa-pencil-alt big-icon text-primary" aria-hidden="true"></i></a>  <a class="eliminar-usuario" href="#"> <i class="fas fa-trash big-icon text-danger" aria-hidden="true"></i></a>')
+                    $('td:eq(5)',row).html('<a class="editar-usuario" href="'+data.id+'"> <i class="fas fa-pencil-alt big-icon text-primary" aria-hidden="true"></i></a>  <a class="eliminar-usuario" href="#"> <i class="fas fa-trash big-icon text-danger" aria-hidden="true"></i></a>')
                 }
                 
             });
@@ -306,19 +318,25 @@
                 if(Afilicion_tipo == 1){
                     //primero
                     $('#ruc').prop( "disabled", true );
+                    $('#buscar_ruc').prop( "disabled", true );
                     $('#representante').prop( "disabled", true );
                     //segundo
                     $('#dni').prop( "disabled", false );
+                    $('#buscar_dni').prop( "disabled", false );
                     $('#paterno').prop( "disabled", false );
                     $('#materno').prop( "disabled", false );
+                    $('#nacimiento').prop( "disabled", false );
                 }else if(Afilicion_tipo == 2){
                     //primero
                     $('#dni').prop( "disabled", true );
+                    $('#buscar_dni').prop( "disabled", true );
                     $('#paterno').prop( "disabled", true );
                     $('#materno').prop( "disabled", true );
+                    $('#nacimiento').prop( "disabled", true );
                     //segundo
                     $('#ruc').prop( "disabled", false );
                     $('#representante').prop( "disabled", false );
+                    $('#buscar_ruc').prop( "disabled", false );
                 }
             });
             $( "#editar_id_tipo_afiliacion" ).change(function() {
@@ -334,11 +352,13 @@
                     $('#editar_dni').prop( "disabled", false );
                     $('#editar_paterno').prop( "disabled", false );
                     $('#editar_materno').prop( "disabled", false );
+                    $('#nacimiento').prop( "disabled", false );
                 }else if(editar_Afilicion_tipo == 2){
                     //primero
                     $('#editar_dni').prop( "disabled", true );
                     $('#editar_paterno').prop( "disabled", true );
                     $('#editar_materno').prop( "disabled", true );
+                    $('#nacimiento').prop( "disabled", true );
                     /*valor*/
                     $('#editar_dni').val("");
                     $('#editar_paterno').val("");
@@ -347,6 +367,42 @@
                     $('#editar_ruc').prop( "disabled", false );
                     $('#editar_representante').prop( "disabled", false );
                 }
+            });
+            $('#buscar_dni').on('click',function(e){
+                e.preventDefault();
+                var dni = $("#dni").val()
+                $.ajax({
+                type: "POST",
+                dataType: "json",
+                url:'buscar-persona',
+                data: {valor:dni},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    $('#nombre').val(data.nombres);
+                    $('#paterno').val(data.apellidoPaterno);
+                    $('#materno').val(data.apellidoMaterno);
+                }
+                });
+            });
+            $('#buscar_ruc').on('click',function(e){
+                e.preventDefault();
+                var dni = $("#ruc").val()
+                $.ajax({
+                type: "POST",
+                dataType: "json",
+                url:'buscar-empresa',
+                data: {valor:dni},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    $('#nombre').val(data.nombre);
+                    $('#direccion').val(data.direccion);
+                    
+                }   
+                });
             });
 
             $(document).on('click', '.editar-usuario', function(e) {

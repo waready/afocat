@@ -146,13 +146,13 @@
                                         <tr id="agregar"></tr>
                                         <tr>
                                             <th colspan="3" class="text-right">TOTAL</th>
-                                            <th class="text-right">S/ <span id="sptotal"></span>.00</th>
+                                            <th class="text-right">S/ <span id=""><input type="text" id="sptotal" name="monto_total" ></span>.00</th>
                                             
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <input type="hidden" id="monto_total" name="monto_total" >
+                            {{-- <input type="hidden" id="monto_total" name="monto_total" > --}}
                             <button type="submit"  class="btn btn-primary">Registrar Pago</button>
                         </form>
                         <a  href="" id="imprimir" class="btn btn-light" style=""><i  class="fas fa-print"></i> Imprimir Ticket </a>
@@ -450,7 +450,7 @@
             $("#add-row").click(function () {  
                 
                 index=1;  
-                $("#sptotal").html(monto);
+                $("#sptotal").val(monto);
                 numero=monto;
                 $("table tbody tr#agregar").html("<td>"+conceptName+"</td><td>"+monto+"</td><td><a class='agregar btn btn-primary' href='#'> <i class='fas fa-plus' aria-hidden='true'></i></a><span id='index'></span><a class='quitar ml-1 btn btn-primary' href='#'> <i class='fas fa-minus' aria-hidden='true'></i></a></td><td>"+monto+"</td><td><a class='eliminar-usuario' href='#'> <i class='fas fa-trash big-icon text-danger' aria-hidden='true'></i></a></td>");
                 $("#index").html(index);
@@ -460,7 +460,7 @@
                 numero= numero + monto;
                 index++;
                $("#index").html(index);
-               $("#sptotal").html(numero);
+               $("#sptotal").val(numero);
             });
             $(document).on('click', '.quitar', function(e) {
                 e.preventDefault();
@@ -471,7 +471,7 @@
                     numero=0;
                 }
                 $("#index").html(index);
-                $("#sptotal").html(numero);
+                $("#sptotal").val(numero);
             });
             $(document).on('click', '.eliminar-usuario', function(e) {
                 e.preventDefault();
@@ -479,7 +479,7 @@
                 numero=0;
                 $("table tbody tr#agregar").html('');
                 $("#index").html(index);
-                $("#sptotal").html(numero);  
+                $("#sptotal").val(numero);  
             });
             $('#form-crear-pago').submit(function(e){
                 e.preventDefault();
@@ -534,7 +534,7 @@
                             numero=0;
                             $("table tbody tr#agregar").html('');
                             $("#index").html(index);
-                            $("#sptotal").html(numero); 
+                            $("#sptotal").val(numero); 
                              
                             $('#imprimir').attr('href', "http://localhost:8000/ventas/"+data.hash);
                             $('#imprimir').show();

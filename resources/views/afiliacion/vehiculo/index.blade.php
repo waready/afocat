@@ -69,57 +69,86 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Nombres</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">DNI/RUC</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="editar_nombre" id="editar_nombre" required placeholder="">
+                                <input type="text" class="form-control" name="id" id="id" required placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Paterno</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Nombre</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="editar_paterno" id="editar_paterno" required placeholder="">
+                                <input type="text" class="form-control" name="nombre" id="nombre" disabled placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Materno</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Placa</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="editar_materno" id="editar_materno" required placeholder="">
+                                <input type="text" class="form-control" name="editar_placa" id="editar_placa" required placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">DNI</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Marca</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="editar_dni" id="editar_dni" required placeholder="">
+                                <input type="text" class="form-control" name="editar_marca" id="editar_marca" required placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Direccción</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Modelo</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="editar_direccion" id="editar_direccion"  placeholder="">
+                                <input type="text" class="form-control" name="editar_modelo" id="editar_modelo" required placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Provincia</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Color</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="editar_provincia" id="editar_provincia"  placeholder="">
+                                <input type="text" class="form-control" name="editar_color" id="editar_color" required placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Email</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Clase</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="email" class="form-control" name="editar_email" id="editar_email"  placeholder="">
+                                <input type="text" class="form-control" name="editar_clase" id="editar_clase"  placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Telefono</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Categoria</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="editar_telefono" id="editar_telefono"  placeholder="">
+                                <input type="text" class="form-control" name="editar_categoria" id="editar_categoria"  placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Nacimiento</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Asientos</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="date" class="form-control" name="editar_nacimiento" id="editar_nacimiento"  placeholder="">
+                                <input type="number" class="form-control" name="editar_asientos" id="editar_asientos"  placeholder="">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Año</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <input type="number" class="form-control" name="editar_anio" id="editar_anio"  placeholder="">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Uso</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <select style="width: 100%" class="form-control carrera seleccion2" name="editar_id_uso" id="editar_id_uso" required>
+                                    <option value="">Seleccionar---</option>
+                                    @foreach($usos as $tipo)
+                                        <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Serie</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <input type="text" class="form-control" name="editar_serie" id="editar_serie"  placeholder="">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Motor</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <input type="text" class="form-control" name="editar_motor" id="editar_motor"  placeholder="">
                             </div>
                         </div>
                     </div>
@@ -203,7 +232,7 @@
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Anio</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Año</label>
                             <div class="col-md-12 col-sm-12 ">
                                 <input type="number" class="form-control" name="anio" id="anio"  placeholder="">
                             </div>
@@ -211,7 +240,12 @@
                         <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-3 label-align">Uso</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="uso" id="uso"  placeholder="">
+                                <select style="width: 100%" class="form-control carrera seleccion2" name="id_uso" id="id_uso" required>
+                                    <option value="">Seleccionar---</option>
+                                    @foreach($usos as $tipo)
+                                        <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="item form-group">

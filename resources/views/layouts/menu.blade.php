@@ -5,7 +5,7 @@
 </li>
 <li class="c-sidebar-nav-item">
     <a class="c-sidebar-nav-link c-active" href="{{ route('afiliaciones') }}">
-        <i class="c-sidebar-nav-icon cil-user"></i>Afiliaciones
+        <i class="c-sidebar-nav-icon cil-user"></i>Cliente Usuario 
     </a>
 </li>
 <li class="c-sidebar-nav-item">

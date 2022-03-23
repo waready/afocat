@@ -54,5 +54,12 @@ class ProductoSeeder extends Seeder
             'abreviatura' => 'CAT>30',
             'precio_unitario' => 854.00
         ]);
+        Producto::create([
+            'nombre'    => 'Certificado otros',
+            'codigo'    => '00007',
+            'numero_certificado' => '07' ,
+            'abreviatura' => 'otros',
+            'precio_unitario' => 10.00
+        ]);
     }
 }

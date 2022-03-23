@@ -5,6 +5,7 @@ use App\Afiliado;
 use App\TipoAfiliado;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 
 class AfiliadosController extends Controller
 {
@@ -38,6 +39,46 @@ class AfiliadosController extends Controller
     {
         //
     }
+    public function busquedaPersona(Request $request)
+    {
+        $token = '';
+        $number = $request->valor;
+        $client = new Client(['base_uri' => 'https://api.apis.net.pe', 'verify' => false]);
+
+        $parameters = [
+            'http_errors' => false,
+            'connect_timeout' => 5,
+            'headers' => [
+                'Authorization' => 'Bearer '.$token,
+                'User-Agent' => 'laravel/guzzle',
+                'Accept' => 'application/json',
+            ],
+            'query' => ['numero' => $number]
+        ];
+        $res = $client->request('GET', '/v1/dni', $parameters);
+        $response = json_decode($res->getBody()->getContents(), true);
+        return($response);
+    }
+    public function busquedaEmpresa(Request $request)
+    {
+        $token = '';
+        $number = $request->valor;
+        $client = new Client(['base_uri' => 'https://api.apis.net.pe', 'verify' => false]);
+
+        $parameters = [
+            'http_errors' => false,
+            'connect_timeout' => 5,
+            'headers' => [
+                'Authorization' => 'Bearer '.$token,
+                'User-Agent' => 'laravel/guzzle',
+                'Accept' => 'application/json',
+            ],
+            'query' => ['numero' => $number]
+        ];
+        $res = $client->request('GET', '/v1/ruc', $parameters);
+        $response = json_decode($res->getBody()->getContents(), true);
+        return($response);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -69,11 +110,11 @@ class AfiliadosController extends Controller
             $afiliado->save(); 
 
         DB::commit();
-            $message = "Afiliado registrado correctamente.";
+            $message = "Cliente registrado correctamente.";
             $status = true;
         } catch (\Exception $e) {
             DB::rollback();
-            $message = "Error al registrar Afiliado, intentelo de nuevo si el problema persiste comuniquese con el administrador.";
+            $message = "Error al registrar Cliente, intentelo de nuevo si el problema persiste comuniquese con el administrador.";
             $status = false;
             $error =$e;
         }
@@ -139,11 +180,11 @@ class AfiliadosController extends Controller
             $afiliado->save();
 
         DB::commit();
-            $message = 'Afiliado actualizado correctamente';
+            $message = 'Cliente actualizado correctamente';
             $status = true;
         } catch (\Exception $e) {
             DB::rollback();
-            $message = 'Error al actualizar Afiliado, intentelo de nuevo si el problema persiste comuniquese con el administrador.';
+            $message = 'Error al actualizar Cliente, intentelo de nuevo si el problema persiste comuniquese con el administrador.';
             $status = false;
             $error = $e;
         }

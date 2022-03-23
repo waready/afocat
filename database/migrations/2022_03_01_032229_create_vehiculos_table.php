@@ -23,7 +23,8 @@ class CreateVehiculosTable extends Migration
             $table->string('categoria')->nullable();
             $table->integer('asientos')->nullable();
             $table->integer('anio');
-            $table->string('uso');
+            $table->unsignedBigInteger('id_uso');
+            $table->foreign('id_uso')->references('id')->on('vehiculo_usos');
             $table->string('serie')->nullable();
             $table->string('motor');
             $table->unsignedBigInteger('id_afiliado');

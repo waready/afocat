@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Vehiculo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\VehiculoUso;
 
 class VehiculoController extends Controller
 {
     public function index()
     {   
-        return view('afiliacion.vehiculo.index');
+        $usos = VehiculoUso::all();
+        return view('afiliacion.vehiculo.index',compact('usos'));
     }
 
     public function getVehiculo()
@@ -147,11 +149,11 @@ class VehiculoController extends Controller
             $Persona->save();
 
         DB::commit();
-            $message = 'Tipo Examen actualizado correctamente';
+            $message = 'Vehiculo actualizado correctamente';
             $status = true;
         } catch (\Exception $e) {
             DB::rollback();
-            $message = 'Error al actualizar Tipo Examen, intentelo de nuevo si el problema persiste comuniquese con el administrador.';
+            $message = 'Error al actualizar Vehiculo, intentelo de nuevo si el problema persiste comuniquese con el administrador.';
             $status = false;
             $error = $e;
         }

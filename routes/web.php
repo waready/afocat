@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use GuzzleHttp\Client;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +15,40 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/hola', function () {
+    // $message =70932833;
+    // $url = 'https://api.apis.net.pe/v1/dni?numero='.$message;
+
+    // $ch = curl_init();
+    // curl_setopt($ch, CURLOPT_URL, $url);
+    // curl_setopt($ch, CURLOPT_POST, 0);
+    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    // $response = curl_exec ($ch);
+    // $err = curl_error($ch);  //if you need
+    // curl_close ($ch);
+
+    // return dd($response);
+    $token = '';
+    $number = 70932833;
+    $tipe= "dni";//"ruc"
+    $client = new Client(['base_uri' => 'https://api.apis.net.pe', 'verify' => false]);
+
+    $parameters = [
+        'http_errors' => false,
+        'connect_timeout' => 5,
+        'headers' => [
+            'Authorization' => 'Bearer '.$token,
+            'User-Agent' => 'laravel/guzzle',
+            'Accept' => 'application/json',
+        ],
+        'query' => ['numero' => $number]
+    ];
+    $res = $client->request('GET', '/v1/'.$tipe, $parameters);
+    $response = json_decode($res->getBody()->getContents(), true);
+    return($response);
 });
 
 Auth::routes();
@@ -57,8 +91,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/pago', 'PagoController@index')->name('pago');
     Route::get('/getpagos', 'PagoController@getpago')->name('getpagos');
     //busquedas
+    Route::post('/buscar-persona','AfiliadosController@busquedaPersona');
+    Route::post('/buscar-empresa','AfiliadosController@busquedaEmpresa');
+    
     Route::post('/buscar-dni','VehiculoController@busqueda');
     Route::post('/buscar-afiliado','AfocatController@busqueda');
+
+
 
     Route::get('/ventas/{hash}', 'PagoController@imprimirVenta');
 
