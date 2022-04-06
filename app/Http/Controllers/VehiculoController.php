@@ -18,7 +18,8 @@ class VehiculoController extends Controller
     public function getVehiculo()
     {
       $categoria = DB::table('vehiculos as ve')
-      ->select('ve.*' ,DB::raw('"" as Opciones'))
+      ->select('ve.*','veus.nombre as uso',DB::raw('"" as Opciones'))
+      ->join('vehiculo_usos as veus','veus.id','ve.id_uso')
       ->get();
       
       return \DataTables::of($categoria)->make('true');
@@ -74,7 +75,7 @@ class VehiculoController extends Controller
             $Vehiculo->categoria = $request->categoria;
             $Vehiculo->asientos = $request->asientos;
             $Vehiculo->anio = $request->anio;
-            $Vehiculo->uso = $request->uso;
+            $Vehiculo->id_uso = $request->id_uso;
             $Vehiculo->serie = $request->serie;
             $Vehiculo->motor = $request->motor;
             $Vehiculo->save(); 
@@ -116,8 +117,11 @@ class VehiculoController extends Controller
      */
     public function edit($id)
     {
-        $Vehiculo = Vehiculo::where("id",$id)
-        
+        $Vehiculo = DB::table('vehiculos as ve')
+        ->where("ve.id",$id)
+        ->join('vehiculo_usos as veus','veus.id','ve.id_uso')
+        ->join('afiliados as af','af.id','ve.id_afiliado')
+        ->select('ve.*', 'veus.nombre as uso','af.dni', 'af.nombre')
         ->first();
 
          return response()->json($Vehiculo);
@@ -132,21 +136,24 @@ class VehiculoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //return $request;
         DB::beginTransaction();
         try {
 
-            $Persona = Persona::find($id);
-            $Persona->dni = $request->editar_dni;
-            $Persona->nombre = $request->editar_nombre;
-            $Persona->paterno = $request->editar_paterno;
-            $Persona->materno = $request->editar_materno;
-            $Persona->direccion = $request->editar_direccion;
-            $Persona->provincia = $request->editar_provincia;
-            $Persona->departamento = $request->editar_departamento;
-            $Persona->telefono = $request->editar_telefono;
-            $Persona->email = $request->editar_email;
-            $Persona->nacimiento = $request->editar_nacimiento;
-            $Persona->save();
+            $Vehiculo = Vehiculo::find($id);
+            $Vehiculo->placa = $request->editar_placa;
+            $Vehiculo->id_afiliado = $request->editar_id_afiliado;
+            $Vehiculo->marca = $request->editar_marca;
+            $Vehiculo->modelo = $request->editar_modelo;
+            $Vehiculo->color = $request->editar_color;
+            $Vehiculo->clase = $request->editar_clase;
+            $Vehiculo->categoria = $request->editar_categoria;
+            $Vehiculo->asientos = $request->editar_asientos;
+            $Vehiculo->anio = $request->editar_anio;
+            $Vehiculo->id_uso = $request->editar_id_uso;
+            $Vehiculo->serie = $request->editar_serie;
+            $Vehiculo->motor = $request->editar_motor;
+            $Vehiculo->save();
 
         DB::commit();
             $message = 'Vehiculo actualizado correctamente';

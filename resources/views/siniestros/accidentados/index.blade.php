@@ -15,7 +15,7 @@
                 <i class="fa fa-plus"></i> Registrar
             </button>   
         </div>
-        
+
         <div class="card-body">
        
             <table width="100%"
@@ -27,7 +27,8 @@
                     <tr>
                         <th>{{ __("DNI") }}</th>
                         <th>{{ __("Nombre") }}</th>
-                        <th>{{ __("Forma de Pago") }}</th>
+                        <th>{{ __("Gasto Accidente") }}</th>
+                        <th>{{ __("Monto") }}</th>
                         <th>{{ __("A_82") }}</th>
                         <th>{{ __("Cuenta A_82") }}</th>
                         <th>{{ __("Ubicacion") }}</th>
@@ -53,9 +54,21 @@
                 <input type="hidden" name="_method" value="PUT">
                 <div class="container-fluid">
                     <div class="item form-group">
+                        <label class="col-form-label col-md-4 col-sm-3 label-align">Accidente</label>
+                        <div class="col-md-12 col-sm-12 ">
+                            <select style="width: 100%" class="form-control carrera " name="editar_id_accidente" id="editar_id_accidente" required>
+                                <option value="">Seleccionar---</option>
+                                
+                                @foreach($Accidente as $tipo)
+                                <option value="{{$tipo->id}}">{{ $tipo->placa }} {{$tipo->ubicacion}} {{$tipo->zona}} </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
                         <label class="col-form-label col-md-4 col-sm-3 label-align">DNI</label>
                         <div class="col-md-12 col-sm-12 ">
-                            <input type="text" class="form-control" name="editar_dni" id="editar_dni" required placeholder="">
+                            <input type="text" maxlength="8" class="form-control" name="editar_dni" id="editar_dni" required placeholder="">
                         </div>
                     </div>
                     <div class="item form-group">
@@ -65,9 +78,14 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-4 col-sm-3 label-align">forma de pago</label>
+                        <label class="col-form-label col-md-12 col-sm-3 label-align">Tipo Gasto Accidente</label>
                         <div class="col-md-12 col-sm-12 ">
-                            <input type="text" class="form-control" name="editar_forma_pago" id="editar_forma_pago"  placeholder="">
+                            <select style="width: 100%" class="form-control carrera" name="editar_id_tipo_gasto" id="editar_id_tipo_gasto" required>
+                                <option value="">Seleccionar---</option>
+                                @foreach($TipoGasto as $tipo)
+                                <option value="{{$tipo->id}}">{{ $tipo->nombre }} - s/. {{ $tipo->monto }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="item form-group">
@@ -82,17 +100,17 @@
                             <input type="text" class="form-control" name="editar_cuenta_a_82" id="editar_cuenta_a_82"  placeholder="">
                         </div>
                     </div>
-                    <div class="item form-group">
+                    {{-- <div class="item form-group">
                         <label class="col-form-label col-md-4 col-sm-3 label-align">Accidente</label>
                         <div class="col-md-12 col-sm-12 ">
                             <select style="width: 100%" class="form-control carrera seleccion2" name="editar_id_accidente" id="editar_id_accidente" required>
                                 <option value="">Seleccionar---</option>
                                 @foreach($Accidente as $tipo)
-                                    <option value="{{$tipo->id}}">{{$tipo->ubicacion}}</option>
+                                    <option value="{{$tipo->id}}">{{ $tipo->placa }} {{$tipo->ubicacion}} {{$tipo->zona}} </option>
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
                 <div class="modal-footer">
@@ -117,9 +135,21 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Accidente</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <select style="width: 100%" class="form-control carrera seleccion2" name="id_accidente" id="id_accidente" required>
+                                    <option value="">Seleccionar---</option>
+                                    
+                                    @foreach($Accidente as $tipo)
+                                    <option value="{{$tipo->id}}">{{ $tipo->placa }} {{$tipo->ubicacion}} {{$tipo->zona}} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-3 label-align">DNI</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="dni" id="dni" required placeholder="">
+                                <input type="text" maxlength="8" class="form-control" name="dni" id="dni" required placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
@@ -129,9 +159,14 @@
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">forma de pago</label>
+                            <label class="col-form-label col-md-12 col-sm-3 label-align">Tipo Gasto Accidente</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="forma_pago" id="forma_pago"  placeholder="">
+                                <select style="width: 100%" class="form-control carrera" name="id_tipo_gasto" id="id_tipo_gasto" required>
+                                    <option value="">Seleccionar---</option>
+                                    @foreach($TipoGasto as $tipo)
+                                    <option value="{{$tipo->id}}">{{ $tipo->nombre }} - s/. {{ $tipo->monto }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -146,18 +181,7 @@
                                 <input type="text" class="form-control" name="cuenta_a_82" id="cuenta_a_82"  placeholder="">
                             </div>
                         </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Accidente</label>
-                            <div class="col-md-12 col-sm-12 ">
-                                <select style="width: 100%" class="form-control carrera seleccion2" name="id_accidente" id="id_accidente" required>
-                                    <option value="">Seleccionar---</option>
-                                    @foreach($Accidente as $tipo)
-                                        <option value="{{$tipo->id}}">{{$tipo->ubicacion}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-    
+                       
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -176,9 +200,28 @@
 <script>
     jQuery(document).ready(function() {
         $('.seleccion2').select2({
-        placeholder: "Seleccione una opción",
-    });
-
+            placeholder: "Seleccione una opción",
+            dropdownParent: $('#modal-agregar-usuario')
+        });
+        $("#dni").blur(function(){
+            if ($(this).val() == "") {
+                $("#nombres").val("No se lleno el dni");
+            }else{
+                var dni = $("#dni").val()
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url:'buscar-persona',
+                    data: {valor:dni},
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        $('#nombres').val(data.nombre);
+                    }
+                });
+            }
+        });
         dt = jQuery("#afocat-table").DataTable({
                 pageLength: 15,
                 lengthMenu: [15, 25, 50, 75, 100 ],
@@ -192,7 +235,8 @@
                 columns: [
                     {data: 'dni'},
                     {data: 'nombres'},
-                    {data: 'forma_pago'},
+                    {data: 'tipo_gasto'},
+                    {data: 'monto'},
                     {data: 'a_82'},
                     {data: 'cuenta_a_82'},
                     {data: 'ubicacion'},
@@ -201,7 +245,7 @@
                 ],
                 rowCallback:function(row, data,index){ 
                  
-                    $('td:eq(7)',row).html('<a class="editar-usuario" href="'+data.id+'"> <i class="fas fa-pencil-alt big-icon text-primary" aria-hidden="true"></i></a>  <a class="eliminar-usuario" href="#"> <i class="fas fa-trash big-icon text-danger" aria-hidden="true"></i></a>')    
+                    $('td:eq(8)',row).html('<a class="editar-usuario" href="'+data.id+'"> <i class="fas fa-pencil-alt big-icon text-primary" aria-hidden="true"></i></a>  <a class="eliminar-usuario" href="#"> <i class="fas fa-trash big-icon text-danger" aria-hidden="true"></i></a>')    
                 }
             });
         });
@@ -227,6 +271,7 @@
                         $('#editar_a_82').val(data.a_82);
                         $('#editar_cuenta_a_82').val(data.cuenta_a_82);
                         $('#editar_id_accidente option[value="'+data.id_accidente+'"]').attr("selected", true);
+                        $('#editar_id_tipo_gasto option[value="'+data.id_gasto+'"]').attr("selected", true);
                         $('#modal-editar-usuario').modal('show');
                     },
                     error: function(error) {

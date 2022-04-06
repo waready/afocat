@@ -35,8 +35,9 @@ class AfocatController extends Controller
     public function getafocat()
     {
       $afocats = DB::table('afocats as af')
-      ->select('af.*','pro.nombre as producto','ve.placa as placa','afi.id_tipo_afiliacion','afi.nombre','afi.paterno','afi.materno')
+      ->select('af.*','pro.nombre as producto','ve.placa as placa','afi.id_tipo_afiliacion','afi.nombre','afi.paterno','afi.materno','veus.nombre as uso')
       ->join('vehiculos as ve', 've.id', 'af.id_vehiculo')
+      ->join('vehiculo_usos as veus','veus.id','ve.id_uso')
       ->join('afiliados as afi','afi.id','ve.id_afiliado')
       ->join('productos as pro','pro.id','af.id_producto')
       ->get();
@@ -54,7 +55,8 @@ class AfocatController extends Controller
 
        // return $request;
         $message = DB::table('vehiculos as ve')
-        ->select('ve.*', 'af.*')
+        ->select('ve.*', 'af.*','veus.nombre as uso')
+        ->join('vehiculo_usos as veus','veus.id','ve.id_uso')
         ->join('afiliados as af','af.id','ve.id_afiliado')
         ->where('ve.placa', $request->valor)->first();
         if($message)
@@ -98,9 +100,9 @@ class AfocatController extends Controller
             $id_pago=$pago->id;
 
                 $afocat= new Afocat;
-                $afocat->inicio_contrato = $date->format('Y-m-d');
-                $afocat->fin_contrato = $date->addYears(intval($request->anios));
-                $afocat->anios = intval($request->anios);
+                $afocat->inicio_contrato = $request->inicio_contrato;
+                $afocat->fin_contrato = $date->addYears(intval(1));
+               // $afocat->anios = intval($request->anios);
                 $afocat->hora = $date->format('H:i:s');
                 $afocat->monto_sbs = $request->monto_sbs;
                 $afocat->monto_total = $request->monto_total;

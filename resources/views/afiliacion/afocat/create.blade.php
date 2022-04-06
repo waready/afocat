@@ -114,19 +114,19 @@
                                 <div class="item form-group col-md-3">
                                     <label class="col-form-label  label-align">Inicio Contrato</label>
                                     <div class="">
-                                        <input type="text" class="form-control" name="inicio_contrato" id="inicio_contrato" required placeholder="">
+                                        <input type="date" class="form-control" name="inicio_contrato" id="inicio_contrato" required placeholder="dd-mm-yyyy">
                                     </div>
                                 </div>
                                 <div class="item form-group col-md-3">
-                                    <label class="col-form-label  label-align">Años</label>
+                                    <label class="col-form-label  label-align">Hora</label>
                                     <div class="">
-                                        <input type="text" class="form-control" name="anios" id="anios" required placeholder="">
+                                        <input type="time" class="form-control" name="hora" id="hora" required placeholder="">
                                     </div>
                                 </div>
                                 <div class="item form-group col-md-3">
                                     <label class="col-form-label  label-align">Fin contrato</label>
                                     <div class="">
-                                        <input type="text" class="form-control" name="fin_contrato" id="fin_contrato" required disabled>
+                                        <input type="date" class="form-control" name="fin_contrato" id="fin_contrato" disabled >
                                     </div>
                                 </div>
                                 <input  type="button" id="add-row" class="btn btn-primary " value="Agregar Certificado"/>
@@ -136,8 +136,8 @@
                                     <thead>
                                         <tr>
                                             <th>CONCEPTO</th>
-                                            <th class="text-right">PRECIO U.</th>
-                                            <th class="text-right">CANTIDAD</th>
+                                            {{-- <th class="text-right">PRECIO U.</th> --}}
+                                            {{-- <th class="text-right">CANTIDAD</th> --}}
                                             <th class="text-right">SUB. TOTAL</th>
                                             <th></th>
                                         </tr>
@@ -372,6 +372,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
     jQuery(document).ready(function() {
+        
+        var now = new Date();
+        var oneYr = new Date();
+        oneYr.setYear(now.getFullYear() + 1);
+
+        document.getElementById('inicio_contrato').valueAsDate = now;
+        document.getElementById('fin_contrato').valueAsDate = oneYr;
+
+        $("#inicio_contrato").change(function() {
+        //     var date = new Date($('#inicio_contrato').val());
+        //   //  console.log(cambio)
+        //     var nuevo = new Date();
+        //     nuevo.setYear(date.getFullYear() + 1);
+        //     $('#fin_contrato').val(nuevo)
+            var inicio = $('#inicio_contrato').val();
+            var start = new Date(inicio);
+            start.setFullYear(start.getFullYear()+1);
+            var final = start.toISOString().slice(0,10).replace(/-/g,"-");
+            document.getElementById('fin_contrato').value = final;
+
+        });
         var monto,numero,index=0;
         $('#add-row').prop( "disabled", true );
         $('#imprimir').hide();
@@ -399,6 +420,7 @@
                         $('#modelo').val(data.message.modelo);
                         $('#color').val(data.message.color);
                         $('#uso').val(data.message.uso);
+
                         $('#id_afiliado').val(data.message.id_afiliado)
                         $('#id_vehiculo').val(data.message.id)
                             if(data.message.dni){
@@ -452,7 +474,8 @@
                 index=1;  
                 $("#sptotal").val(monto);
                 numero=monto;
-                $("table tbody tr#agregar").html("<td>"+conceptName+"</td><td>"+monto+"</td><td><a class='agregar btn btn-primary' href='#'> <i class='fas fa-plus' aria-hidden='true'></i></a><span id='index'></span><a class='quitar ml-1 btn btn-primary' href='#'> <i class='fas fa-minus' aria-hidden='true'></i></a></td><td>"+monto+"</td><td><a class='eliminar-usuario' href='#'> <i class='fas fa-trash big-icon text-danger' aria-hidden='true'></i></a></td>");
+               // $("table tbody tr#agregar").html("<td>"+conceptName+"</td><td>"+monto+"</td><td><a class='agregar btn btn-primary' href='#'> <i class='fas fa-plus' aria-hidden='true'></i></a><span id='index'></span><a class='quitar ml-1 btn btn-primary' href='#'> <i class='fas fa-minus' aria-hidden='true'></i></a></td><td>"+monto+"</td><td><a class='eliminar-usuario' href='#'> <i class='fas fa-trash big-icon text-danger' aria-hidden='true'></i></a></td>");
+               $("table tbody tr#agregar").html("<td>"+conceptName+"</td><td>"+monto+"</td><td><a class='eliminar-usuario' href='#'> <i class='fas fa-trash big-icon text-danger' aria-hidden='true'></i></a></td>");
                 $("#index").html(index);
             });
             $(document).on('click', '.agregar', function(e) {

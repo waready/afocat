@@ -5,9 +5,22 @@ use App\Accidente;
 use App\Vehiculo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AccidenteController extends Controller
 {
+
+    private $dateTime;
+    private $dateTimePartial;
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+        date_default_timezone_set("America/Lima");//Zona horaria de Peru
+        $this->dateTime = date("Y-m-d H:i:s");
+        $this->dateTimePartial = date("m-Y");
+
+    }
     public function index()
     {   $Vehiculos = Vehiculo::all();
 
@@ -48,10 +61,23 @@ class AccidenteController extends Controller
 
             $Accidente = new Accidente;
             $Accidente->id_vehiculo = $request->id_vehiculo;
+            $Accidente->hora = $request->hora;
+            $Accidente->observaciones = $request->observacion;
             $Accidente->notificacion = $request->notificacion;
             $Accidente->ocurrencia = $request->ocurrencia;
             $Accidente->ubicacion = $request->ubicacion;
             $Accidente->zona = $request->zona;
+
+            
+            $file = $request->file('certificado');
+            if($file){
+                
+                $name = 'A-'.$file->getClientOriginalName();
+                $titulo = explode(".",$file->getClientOriginalName())[0];
+                $Accidente->file_path = $this->dateTimePartial.'/'.$name;
+                Storage::disk('adjuntos')->putFileAs($this->dateTimePartial, $file, $name);
+                
+            }
             $Accidente->save(); 
 
         DB::commit();
@@ -109,11 +135,21 @@ class AccidenteController extends Controller
         try {
 
             $Accidente = Accidente::find($id);
-            $Accidente->codigo = $request->codigo;
-            $Accidente->nombre = $request->nombre;
-            $Accidente->numero_certificado = $request->numero_certificado;
-            $Accidente->abreviatura = $request->abreviatura;
-            $Accidente->precio_unitario = $request->precio_unitario;
+            $Accidente->id_vehiculo = $request->editar_id_vehiculo;
+            $Accidente->hora = $request->editar_hora;
+            $Accidente->observaciones = $request->editar_observacion;
+            $Accidente->notificacion = $request->editar_notificacion;
+            $Accidente->ocurrencia = $request->editar_ocurrencia;
+            $Accidente->ubicacion = $request->editar_ubicacion;
+            $Accidente->zona = $request->editar_zona;
+
+            $file = $request->file('editar_certificado');
+            if($file){
+                $name = 'A-'.$file->getClientOriginalName();
+                $titulo = explode(".",$file->getClientOriginalName())[0];
+                $Accidente->file_path = $this->dateTimePartial.'/'.$name;
+                Storage::disk('adjuntos')->putFileAs($this->dateTimePartial, $file, $name);
+            }
             $Accidente->save(); 
 
         DB::commit();

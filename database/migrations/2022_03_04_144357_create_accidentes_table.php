@@ -18,6 +18,9 @@ class CreateAccidentesTable extends Migration
             $table->date('ocurrencia')->nullable();
             $table->date('notificacion')->nullable();
             $table->string('ubicacion');
+            $table->text('observaciones')->nullable();
+            $table->time('hora')->nullable();
+            $table->string('file_path')->nullable();
             $table->string('zona')->nullable(); //zona geografica
             $table->unsignedBigInteger('id_vehiculo');
             $table->foreign('id_vehiculo')->references('id')->on('vehiculos');

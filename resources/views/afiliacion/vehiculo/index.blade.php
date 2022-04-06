@@ -71,14 +71,17 @@
                         <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-3 label-align">DNI/RUC</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="id" id="id" required placeholder="">
+                                <input type="text" class="form-control" name="editar_id" id="editar_id" required placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-3 label-align">Nombre</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="nombre" id="nombre" disabled placeholder="">
+                                <input type="text" class="form-control" name="editar_nombre" id="editar_nombre" disabled placeholder="">
                             </div>
+                        </div>
+                        <div id="editar_dato_id">
+
                         </div>
                         <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-3 label-align">Placa</label>
@@ -119,7 +122,7 @@
                         <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-3 label-align">Asientos</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="number" class="form-control" name="editar_asientos" id="editar_asientos"  placeholder="">
+                                <input type="number" class="form-control" min="1"  name="editar_asientos" id="editar_asientos"  placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
@@ -228,7 +231,7 @@
                         <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-3 label-align">Asientos</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="number" class="form-control" name="asientos" id="asientos"  placeholder="">
+                                <input type="number" class="form-control" min="1" name="asientos" id="asientos"  placeholder="">
                             </div>
                         </div>
                         <div class="item form-group">
@@ -311,7 +314,38 @@
                 }
             });
         });
-       
+        $("#editar_id").blur(function(){
+            if ($(this).val() == "") {
+                $("#editar_nombre").val("BUSCANDO CLIENTE...");
+            } else{
+                if ($(this).val().length == 11) {
+                    var tipe = "ruc";
+                }
+                else{
+                    var tipe = "dni";
+                }
+            }
+            var id = $("#editar_id").val()
+            $("#editar_nombre").val("BUSCANDO CLIENTE...");
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url:'buscar-dni',
+                data: {valor:id,tipo:tipe},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if(data.message == null){
+                        $("#editar_nombre").val("NO SE ENCONTRO CLIENTE");
+                    }else{
+                        $("#editar_nombre").val(data.message.nombre);
+                        var fieldHTML  = '<div><input type="hidden" name="editar_id_afiliado" value="'+data.message.id+'"/> </div>';
+                        $('#editar_dato_id').append(fieldHTML);
+                    }
+                }
+            });
+        });
       
 
 
@@ -359,15 +393,21 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
+                        var fieldHTML  = '<div><input type="hidden" name="editar_id_afiliado" value="'+data.id_afiliado+'"/> </div>';
+                        $('#editar_dato_id').append(fieldHTML);
+                        $('#editar_id').val(data.dni);
                         $('#editar_nombre').val(data.nombre);
-                        $('#editar_paterno').val(data.paterno);
-                        $('#editar_materno').val(data.materno);
-                        $('#editar_dni').val(data.dni);
-                        $('#editar_telefono').val(data.telefono);
-                        $('#editar_direccion').val(data.direccion);
-                        $('#editar_provincia').val(data.provincia);
-                        $('#editar_email').val(data.email);
-                        $('#editar_nacimiento').val(data.nacimiento);
+                        $('#editar_placa').val(data.placa);
+                        $('#editar_marca').val(data.marca);
+                        $('#editar_modelo').val(data.modelo);
+                        $('#editar_color').val(data.color);
+                        $('#editar_clase').val(data.clase);
+                        $('#editar_categoria').val(data.categoria);
+                        $('#editar_asientos').val(data.asientos);
+                        $('#editar_anio').val(data.anio);
+                        $('#editar_serie').val(data.serie);
+                        $('#editar_motor').val(data.motor);
+                        $('#editar_id_uso option[value="'+data.id_uso+'"]').attr("selected", true);
                         $('#modal-editar-usuario').modal('show');
                     },
                     error: function(error) {

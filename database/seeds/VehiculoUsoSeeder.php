@@ -12,7 +12,7 @@ class VehiculoUsoSeeder extends Seeder
     public function run()
     {
         VehiculoUso::create([
-            'nombre'  => 'Interprovincail'
+            'nombre'  => 'Interprovincial'
         ]);
         VehiculoUso::create([
             'nombre'  => 'InterUrbano'

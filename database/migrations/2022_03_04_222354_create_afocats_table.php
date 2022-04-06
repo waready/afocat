@@ -18,7 +18,8 @@ class CreateAfocatsTable extends Migration
        
             $table->date('inicio_contrato');//fecha de inicio
             $table->date('fin_contrato'); //1-2 años ?
-            $table->unsignedTinyInteger('anios')->default(0);// numero años
+            $table->unsignedTinyInteger('anios')->default(1);// numero años
+            $table->string('numero_certificado')->nullable();
             $table->time('hora'); //sistemas
 
             $table->unsignedDecimal('monto_sbs', 12, 2);

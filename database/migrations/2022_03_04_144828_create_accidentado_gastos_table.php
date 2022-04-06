@@ -16,12 +16,14 @@ class CreateAccidentadoGastosTable extends Migration
         Schema::create('accidentado_gastos', function (Blueprint $table) {
             $table->id();
             
-            $table->unsignedDecimal('Pagado', 12, 2);
-            $table->unsignedDecimal('Pendiente', 12, 2);
-            $table->date('fecha_limite');
-
-            $table->unsignedBigInteger('id_gasto');
-            $table->foreign('id_gasto')->references('id')->on('gastos');
+            $table->unsignedDecimal('monto_pagado', 12, 2);
+            //$table->unsignedDecimal('Pendiente', 12, 2);
+            $table->date('fecha_pago');
+            $table->time('hora');
+            // $table->unsignedBigInteger('id_gasto');
+            // $table->foreign('id_gasto')->references('id')->on('gastos');
+            $table->unsignedBigInteger('id_tipo_pago');
+            $table->foreign('id_tipo_pago')->references('id')->on('tipo_pagos');
 
             $table->string('archivo_path')->nullable();
 

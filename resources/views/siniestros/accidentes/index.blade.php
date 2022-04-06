@@ -51,6 +51,17 @@
                 <input type="hidden" name="_method" value="PUT">
                 <div class="container-fluid">
                     <div class="item form-group">
+                        <label class="col-form-label col-md-4 col-sm-3 label-align">Placa Vehiculo</label>
+                        <div class="col-md-12 col-sm-12 ">
+                            <select style="width: 100%" class="form-control carrera seleccion2" name="editar_id_vehiculo" id="editar_id_vehiculo" required>
+                                
+                                @foreach($Vehiculos as $tipo)
+                                    <option value="{{$tipo->id}}">{{$tipo->placa}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
                         <label class="col-form-label col-md-4 col-sm-3 label-align">Ocurrencia</label>
                         <div class="col-md-12 col-sm-12 ">
                             <input type="date" class="form-control" name="editar_ocurrencia" id="editar_ocurrencia" required placeholder="">
@@ -63,7 +74,13 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-4 col-sm-3 label-align">Ubicaion</label>
+                        <label class="col-form-label col-md-4 col-sm-3 label-align">Hora</label>
+                        <div class="col-md-12 col-sm-12 ">
+                            <input type="time" class="form-control" name="editar_hora" id="editar_hora" required placeholder="">
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-4 col-sm-3 label-align">Ubicación</label>
                         <div class="col-md-12 col-sm-12 ">
                             <input type="text" class="form-control" name="editar_ubicacion" id="editar_ubicacion"  placeholder="">
                         </div>
@@ -75,14 +92,17 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-4 col-sm-3 label-align">Placa</label>
+                        <label class="col-form-label col-md-4 col-sm-3 label-align">Observaciones</label>
                         <div class="col-md-12 col-sm-12 ">
-                            <select style="width: 100%" class="form-control carrera seleccion2" name="editar_id_vehiculo" id="editar_id_vehiculo" required>
-                                <option value="">Seleccionar---</option>
-                                @foreach($Vehiculos as $tipo)
-                                    <option value="{{$tipo->id}}">{{$tipo->placa}}</option>
-                                @endforeach
-                            </select>
+                            {{-- <input type="text" class="form-control" name="editar_zona" id="editar_zona"  placeholder=""> --}}
+                            <textarea class="form-control" rows="3" name="editar_observacion" id="editar_observacion" cols="50"></textarea>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label ">Certificado Denuncia Policial</label>
+                        <div class="col-md-12 col-sm-12 ">
+                            <input type="file" class="custom-file-input" name="editar_certificado" id="editar_certificado" lang="es">
+                            <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
                         </div>
                     </div>
                 </div>
@@ -108,6 +128,17 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Placa Vehiculo</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <select style="width: 100%" class="form-control carrera seleccion2" name="id_vehiculo" id="id_vehiculo" required>
+                                    <option value="">Seleccionar---</option>
+                                    @foreach($Vehiculos as $tipo)
+                                        <option value="{{$tipo->id}}">{{$tipo->placa}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-3 label-align">Ocurrencia</label>
                             <div class="col-md-12 col-sm-12 ">
                                 <input type="date" class="form-control" name="ocurrencia" id="ocurrencia" required placeholder="">
@@ -120,7 +151,13 @@
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Ubicaion</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Hora</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <input type="time" class="form-control" name="hora" id="hora" required placeholder="">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Ubicación</label>
                             <div class="col-md-12 col-sm-12 ">
                                 <input type="text" class="form-control" name="ubicacion" id="ubicacion"  placeholder="">
                             </div>
@@ -132,14 +169,17 @@
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Placa</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Observaciones</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <select style="width: 100%" class="form-control carrera seleccion2" name="id_vehiculo" id="id_vehiculo" required>
-                                    <option value="">Seleccionar---</option>
-                                    @foreach($Vehiculos as $tipo)
-                                        <option value="{{$tipo->id}}">{{$tipo->placa}}</option>
-                                    @endforeach
-                                </select>
+                                {{-- <input type="text" class="form-control" name="editar_zona" id="editar_zona"  placeholder=""> --}}
+                                <textarea class="form-control" rows="3" name="observacion" id="observacion" cols="50"></textarea>
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label ">Certificado Denuncia Policial</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <input type="file" class="custom-file-input" name="certificado" id="certificado" lang="es">
+                                <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
                             </div>
                         </div>
                     </div>
@@ -159,10 +199,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
     jQuery(document).ready(function() {
-        $('.seleccion2').select2({
-        placeholder: "Seleccione una opción",
-    });
-
+        $('#id_vehiculo').select2({
+            placeholder: "Seleccione una opción",
+            dropdownParent: $('#modal-agregar-usuario')
+        });
+        $('#editar_id_vehiculo').select2({
+            //placeholder: "Seleccione una opción",
+            dropdownParent: $('#modal-editar-usuario')
+        });
         dt = jQuery("#afocat-table").DataTable({
                 pageLength: 15,
                 lengthMenu: [15, 25, 50, 75, 100 ],
@@ -203,11 +247,14 @@
                     },
                     success: function(data) {
                        // console.log(data)
-                        $('#editar_nombre').val(data.nombre);
-                        $('#editar_codigo').val(data.codigo);
-                        $('#editar_numero_certificado').val(data.numero_certificado);
-                        $('#editar_abreviatura').val(data.abreviatura);
-                        $('#editar_precio_unitario').val(data.precio_unitario);
+                        $('#editar_ocurrencia').val(data.ocurrencia);
+                        $('#editar_notificacion').val(data.notificacion);
+                        $('#editar_hora').val(data.numero_certificado);
+                        $('#editar_ubicacion').val(data.ubicacion);
+                        $('#editar_zona').val(data.zona);
+                        $('#editar_hora').val(data.hora);
+                        $('#editar_observacion').val(data.observaciones)
+                        $('#editar_id_vehiculo option[value="'+data.id_vehiculo+'"]').attr("selected", true);
                         $('#modal-editar-usuario').modal('show');
                     },
                     error: function(error) {

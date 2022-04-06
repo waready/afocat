@@ -26,9 +26,10 @@
             >
                 <thead>
                     <tr>
-                        <th>{{ __("Pagado") }}</th>
-                        <th>{{ __("Pendiente") }}</th>
-                        <th>{{ __("Fecha Limite") }}</th>
+                        <th>{{ __("Monto Pagado") }}</th>
+                        {{-- <th>{{ __("Pendiente") }}</th> --}}
+                        <th>{{ __("Fecha Pago") }}</th>
+                        <th>{{ __("Tipo de Pago") }}</th>
                         <th>{{ __("Gasto") }}</th>
                         <th>{{ __("Accidentado") }}</th>
                         <th>{{ __("Archibo") }}</th>
@@ -53,27 +54,38 @@
                 <input type="hidden" name="_method" value="PUT">
                 <div class="container-fluid">
                     <div class="item form-group">
-                        <label class="col-form-label col-md-4 col-sm-3 label-align">Pagado</label>
+                        <label class="col-form-label col-md-4 col-sm-3 label-align">Accidentado</label>
                         <div class="col-md-12 col-sm-12 ">
-                            <input type="text" class="form-control" name="editar_Pagado" id="editar_Pagado" required placeholder="">
+                            <select style="width: 100%" class="form-control carrera " name="editar_id_accidentado" id="editar_id_accidentado" required>
+                                <option value="">Seleccionar---</option>
+                                @foreach($Accidentado as $tipo)
+                                    <option value="{{$tipo->id}}">{{$tipo->nombres}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="item form-group">
+                        <label class="col-form-label col-md-4 col-sm-3 label-align">Monto Pagado</label>
+                        <div class="col-md-12 col-sm-12 ">
+                            <input  type='number' step='1.00'  placeholder='0.00'  class="form-control" name="editar_monto_pagado" id="editar_monto_pagado" required>
+                        </div>
+                    </div>
+                    {{-- <div class="item form-group">
                         <label class="col-form-label col-md-4 col-sm-3 label-align">Pendiente</label>
                         <div class="col-md-12 col-sm-12 ">
                             <input type="text" class="form-control" name="editar_Pendiente" id="editar_Pendiente" required placeholder="">
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="item form-group">
-                        <label class="col-form-label col-md-4 col-sm-3 label-align">Fecha limite</label>
+                        <label class="col-form-label col-md-4 col-sm-3 label-align">Fecha de Pago</label>
                         <div class="col-md-12 col-sm-12 ">
-                            <input type="date" class="form-control" name="editar_fecha_limite" id="editar_fecha_limite"  placeholder="">
+                            <input type="date" class="form-control" name="editar_fecha_pago" id="editar_fecha_pago"  placeholder="">
                         </div>
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-4 col-sm-3 label-align">Tipo Gasto</label>
                         <div class="col-md-12 col-sm-12 ">
-                            <select style="width: 100%" class="form-control carrera seleccion2" name="editar_id_gasto" id="editar_id_gasto" required>
+                            <select style="width: 100%" class="form-control carrera " name="editar_id_tipo_pago" id="editar_id_tipo_pago" required>
                                 <option value="">Seleccionar---</option>
                                 @foreach($TipoGasto as $tipo)
                                     <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
@@ -81,22 +93,12 @@
                             </select>
                         </div>
                     </div>
+                   
                     <div class="item form-group">
-                        <label class="col-form-label col-md-4 col-sm-3 label-align">Accidentado</label>
+                        <label class="col-form-label col-md-12 col-sm-3 label-align">Documento de Conformidad</label>
                         <div class="col-md-12 col-sm-12 ">
-                            <select style="width: 100%" class="form-control carrera seleccion2" name="editar_id_accidentado" id="editar_id_accidentado" required>
-                                <option value="">Seleccionar---</option>
-                                @foreach($Accidentado as $tipo)
-                                    <option value="{{$tipo->id}}">{{$tipo->nombres}}</option>
-                                @endforeach
-                                
-                            </select>
-                        </div>
-                    </div>
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-4 col-sm-3 label-align">Archivo</label>
-                        <div class="col-md-12 col-sm-12 ">
-                            <input type="text" class="form-control" name="editar_archibo_path" id="editar_archibo_path"  placeholder="">
+                            <input type="file" class="custom-file-input" name="editar_doc_conformidad" id="editar_doc_conformidad" lang="es">
+                            <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
                         </div>
                     </div>
                 </div>
@@ -122,35 +124,6 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Pagado</label>
-                            <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="Pagado" id="Pagado" required placeholder="">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Pendiente</label>
-                            <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="Pendiente" id="Pendiente" required placeholder="">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Fecha limite</label>
-                            <div class="col-md-12 col-sm-12 ">
-                                <input type="date" class="form-control" name="fecha_limite" id="fecha_limite"  placeholder="">
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Tipo Gasto</label>
-                            <div class="col-md-12 col-sm-12 ">
-                                <select style="width: 100%" class="form-control carrera seleccion2" name="id_gasto" id="id_gasto" required>
-                                    <option value="">Seleccionar---</option>
-                                    @foreach($TipoGasto as $tipo)
-                                        <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="item form-group">
                             <label class="col-form-label col-md-4 col-sm-3 label-align">Accidentado</label>
                             <div class="col-md-12 col-sm-12 ">
                                 <select style="width: 100%" class="form-control carrera seleccion2" name="id_accidentado" id="id_accidentado" required>
@@ -162,9 +135,40 @@
                             </div>
                         </div>
                         <div class="item form-group">
-                            <label class="col-form-label col-md-4 col-sm-3 label-align">Archivo</label>
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Monto Pagado</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" class="form-control" name="archibo_path" id="archibo_path"  placeholder="">
+                                <input  type='number' step='1.00'  placeholder='0.00'  class="form-control" name="monto_pagado" id="monto_pagado" required>
+                            </div>
+                        </div>
+                        {{-- <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Pendiente</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <input type="text" class="form-control" name="Pendiente" id="Pendiente" required placeholder="">
+                            </div>
+                        </div> --}}
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Fecha de Pago</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <input type="date" class="form-control" name="fecha_pago" id="fecha_pago"  placeholder="">
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-4 col-sm-3 label-align">Tipo Gasto</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <select style="width: 100%" class="form-control carrera seleccion2" name="id_tipo_pago" id="id_tipo_pago" required>
+                                    <option value="">Seleccionar---</option>
+                                    @foreach($TipoGasto as $tipo)
+                                        <option value="{{$tipo->id}}">{{$tipo->nombre}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                      
+                        <div class="item form-group">
+                            <label class="col-form-label col-md-12 col-sm-3 label-align">Documento de Conformidad</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <input type="file" class="custom-file-input" name="doc_conformidad" id="doc_conformidad" lang="es">
+                                <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
                             </div>
                         </div>
                     </div>
@@ -199,10 +203,10 @@
                     url: "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
                 },
                 columns: [
-                    {data: 'Pagado'},
-                    {data: 'Pendiente'},
-                    {data: 'fecha_limite'},
-                    {data: 'Gasto'},
+                    {data: 'monto_pagado'},
+                    {data: 'fecha_pago'},
+                    {data: 'tipo_pago'},
+                    {data: 'gasto'},
                     {data: 'accidentado'},
                     {data: 'archivo_path'},
                     {data: 'Opciones'}
@@ -229,12 +233,12 @@
                     },
                     success: function(data) {
                         console.log(data)
-                        $('#editar_nombres').val(data.nombres);
-                        $('#editar_dni').val(data.dni);
-                        $('#editar_forma_pago').val(data.forma_pago);
-                        $('#editar_a_82').val(data.a_82);
-                        $('#editar_cuenta_a_82').val(data.cuenta_a_82);
-                        $('#editar_id_accidente option[value="'+data.id_accidente+'"]').attr("selected", true);
+                        $('#editar_id_accidentado option[value="'+data.id_accidentado+'"]').attr("selected", true);
+                        $('#editar_monto_pagado').val(data.monto_pagado);
+                        $('#editar_fecha_pago').val(data.fecha_pago);
+                        $('#editar_id_tipo_pago option[value="'+data.id_tipo_pago+'"]').attr("selected", true);
+                       // $('#editar_doc_conformidad').val(data.cuenta_a_82);
+                       // $('#editar_id_accidente option[value="'+data.id_accidente+'"]').attr("selected", true);
                         $('#modal-editar-usuario').modal('show');
                     },
                     error: function(error) {

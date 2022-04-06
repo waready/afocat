@@ -53,7 +53,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white">
-                <h5 class="modal-title">Editar Afiliado</h5>
+                <h5 class="modal-title">Editar Cliente Usuario</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -153,7 +153,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white">
-                <h5 class="modal-title">Agregar Nuevo Afiliado</h5>
+                <h5 class="modal-title">Agregar Nuevo Cliente Usuario</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -315,6 +315,16 @@
            
             $( "#id_tipo_afiliacion" ).change(function() {
                 var Afilicion_tipo = $(this).val();
+                    $('#ruc').val('');
+                    $('#nombre').val('');
+                
+                    $('#representante').val('');
+                    //segundo
+                    $('#dni').val('');
+        
+                    $('#paterno').val('');
+                    $('#materno').val('');
+                    $('#nacimiento').val('');
                 if(Afilicion_tipo == 1){
                     //primero
                     $('#ruc').prop( "disabled", true );

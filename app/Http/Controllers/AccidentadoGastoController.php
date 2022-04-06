@@ -4,15 +4,28 @@ namespace App\Http\Controllers;
 use App\Accidente;
 use App\Accidentado;
 use App\Vehiculo;
-use App\Gasto;
+use App\TipoPago;
 use App\AccidentadoGasto;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AccidentadoGastoController extends Controller
 {
+    private $dateTime;
+    private $dateTimePartial;
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+        date_default_timezone_set("America/Lima");//Zona horaria de Peru
+        $this->dateTime = date("Y-m-d H:i:s");
+        $this->dateTimePartial = date("m-Y");
+
+    }
     public function index()
-    {   $TipoGasto = Gasto::all();
+    {   $TipoGasto = TipoPago::all();
         $Accidentado = Accidentado::all();
 
         return view('siniestros.accidente-gastos.index',compact('Accidentado','TipoGasto'));
@@ -21,9 +34,10 @@ class AccidentadoGastoController extends Controller
     public function getaccidente()
     {
         $acidente = DB::table('accidentado_gastos as ac')
-        ->select('ac.*','ve.nombre as Gasto','aci.nombres as accidentado',DB::raw('"" as Opciones'))
-        ->join('gastos as ve', 'ac.id_gasto','ve.id')
+        ->select('ac.*','aci.nombres as accidentado','ga.nombre as gasto','tp.nombre as tipo_pago',DB::raw('"" as Opciones'))
+        ->join('tipo_pagos as tp','tp.id','ac.id_tipo_pago')
         ->join('accidentados as aci','aci.id','ac.id_accidentado')
+        ->join('gastos as ga','ga.id','aci.id_gasto')
         ->get();
 
         return \DataTables::of($acidente)->make('true');
@@ -47,17 +61,26 @@ class AccidentadoGastoController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request;
+       // return $request;
+        $date = Carbon::now();
         DB::beginTransaction();
         try {
 
             $Accidente = new AccidentadoGasto;
-            $Accidente->Pagado = $request->Pagado;
-            $Accidente->Pendiente = $request->Pendiente;
-            $Accidente->archivo_path = $request->archibo_path;
-            $Accidente->fecha_limite = $request->fecha_limite;
+            $Accidente->monto_pagado = $request->monto_pagado;
+          //  $Accidente->Pendiente = $request->Pendiente;
+            //$Accidente->archivo_path = $request->archibo_path;
+            $Accidente->hora = $date->format('H:i:s');
+            $file = $request->file('doc_conformidad');
+            if($file){
+                $name = 'A-'.$file->getClientOriginalName();
+                $titulo = explode(".",$file->getClientOriginalName())[0];
+                $Accidente->archivo_path = $this->dateTimePartial.'/'.$name;
+                Storage::disk('adjuntos')->putFileAs($this->dateTimePartial, $file, $name);
+            }
+            $Accidente->fecha_pago = $request->fecha_pago;
             $Accidente->id_accidentado = $request->id_accidentado;
-            $Accidente->id_gasto = $request->id_gasto;
+            $Accidente->id_tipo_pago = $request->id_tipo_pago;
             $Accidente->save(); 
 
         DB::commit();
@@ -110,16 +133,25 @@ class AccidentadoGastoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   $date = Carbon::now();
+     //   return $request;
         DB::beginTransaction();
         try {
-
+        
             $Accidente = AccidentadoGasto::find($id);
-            $Accidente->codigo = $request->codigo;
-            $Accidente->nombre = $request->nombre;
-            $Accidente->numero_certificado = $request->numero_certificado;
-            $Accidente->abreviatura = $request->abreviatura;
-            $Accidente->precio_unitario = $request->precio_unitario;
+            
+            $Accidente->monto_pagado = $request->editar_monto_pagado;
+            $Accidente->hora = $date->format('H:i:s');
+            $file = $request->file('editar_doc_conformidad');
+            if($file){
+                $name = 'A-'.$file->getClientOriginalName();
+                $titulo = explode(".",$file->getClientOriginalName())[0];
+                $Accidente->archivo_path = $this->dateTimePartial.'/'.$name;
+                Storage::disk('adjuntos')->putFileAs($this->dateTimePartial, $file, $name);
+            }
+            $Accidente->fecha_pago = $request->editar_fecha_pago;
+            $Accidente->id_accidentado = $request->editar_id_accidentado;
+            $Accidente->id_tipo_pago = $request->editar_id_tipo_pago;
             $Accidente->save(); 
 
         DB::commit();

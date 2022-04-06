@@ -17,7 +17,10 @@ class CreateAccidentadosTable extends Migration
             $table->id();
             $table->string('dni',8);
             $table->string('nombres');
-            $table->string('forma_pago')->nullable();
+            // $table->unsignedBigInteger('id_tipo_pago');
+            // $table->foreign('id_tipo_pago')->references('id')->on('tipo_pagos');
+            $table->unsignedBigInteger('id_gasto');
+            $table->foreign('id_gasto')->references('id')->on('gastos');
             $table->string('a_82');
             $table->string('cuenta_a_82');
             $table->unsignedBigInteger('id_accidente');
