@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5|^8.0",
         "chillerlan/php-qrcode": "^4.3",
+        "codedge/laravel-fpdf": "^1.8",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.4",

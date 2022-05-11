@@ -13,6 +13,9 @@
         <div class="card-header">Accidentes
             <button type="button" id="agregar-responsable-carrera" class="ml-2 btn btn-info btn-xl" data-toggle="modal" data-target="#modal-agregar-usuario">
                 <i class="fa fa-plus"></i> Registrar
+            </button>
+            <button type="button" id="button" class="ml-2 btn btn-success btn-xl"  >
+                <i class="fa fa-file"></i> Exportar
             </button>   
         </div>
         
@@ -197,6 +200,7 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
 <script>
     jQuery(document).ready(function() {
         $('#id_vehiculo').select2({
@@ -206,6 +210,16 @@
         $('#editar_id_vehiculo').select2({
             //placeholder: "Seleccione una opción",
             dropdownParent: $('#modal-editar-usuario')
+        });
+        $("#button").click(function(){
+            $("#afocat-table").table2excel({
+            // exclude CSS class
+            exclude:".noExl",
+            name:"Worksheet Name",
+            filename:"Accidentes",//do not include extension
+            fileext:".xls", // file extension
+           //columns : [0,1,2,3,4,5,6,7,8,9,10,11]
+            });
         });
         dt = jQuery("#afocat-table").DataTable({
                 pageLength: 15,

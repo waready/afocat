@@ -100,6 +100,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::get('/ventas/{hash}', 'PagoController@imprimirVenta');
+    Route::get('certificado-generico','PagoController@generarDocumentoPdf');
 
     /****SINIESTROS*****/
     //accidentes

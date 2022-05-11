@@ -17,6 +17,9 @@
 
                 <div class="card-body">
                     <a  href="{{ route('new-afocat') }}"  class="ml-3 mt-2 btn btn-primary" style=""><i  class="fas fa-plus"></i> Registrar Afocat </a>
+                    <button type="button" id="button" class="ml-3 mt-2  btn btn-success"  >
+                        <i class="fa fa-file"></i> Exportar
+                    </button>
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -57,8 +60,19 @@
 {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> --}}
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
 <script>
     jQuery(document).ready(function() {
+        $("#button").click(function(){
+            $("#afocat-table").table2excel({
+            // exclude CSS class
+            exclude:".noExl",
+            name:"Worksheet Name",
+            filename:"Afocats",//do not include extension
+            fileext:".xls", // file extension
+           //columns : [0,1,2,3,4,5,6,7,8,9,10,11]
+            });
+        });
         dt = jQuery("#afocat-table").DataTable({
                 pageLength: 15,
                 lengthMenu: [15, 25, 50, 75, 100 ],

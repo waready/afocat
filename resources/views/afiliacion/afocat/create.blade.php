@@ -37,12 +37,12 @@
                                 </div>
                                 <div class="col-md-3">
 
-                                    <button  type="submit" id="submit" class="btn btn-primary">Buscar Afiliado</button>
+                                    <button  type="submit" id="submit" class="btn btn-primary">Buscar Cliente Afiliado</button>
                                 </div>
                             </div>                          
                         </form>
                         <hr>
-                            <h4>Datos Vehiculos</h4>
+                            <h4>Datos Vehículos</h4>
                         <form id="form-crear-pago" class="form-horizontal form-label-left" >
                             @csrf
                             <input type="hidden" name="_method" value="POST">
@@ -368,6 +368,7 @@
 @push('scripts')
 {{-- 
 <script src="https://unpkg.com/@coreui/coreui@3.4.0/dist/js/coreui.bundle.min.js"></script> --}}
+
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>

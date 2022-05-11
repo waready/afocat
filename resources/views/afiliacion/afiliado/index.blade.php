@@ -15,6 +15,9 @@
                     <button type="button" id="agregar-responsable-carrera" class="btn btn-info btn-sm ml-2" data-toggle="modal" data-target="#modal-agregar-usuario">
                         <i class="fa fa-plus"></i> Agregar
                     </button>
+                    <button type="button" id="button" class="btn btn-success btn-sm ml-2"  >
+                        <i class="fa fa-file"></i> Exportar
+                    </button>
                 </div>
 
                 <div class="card-body">
@@ -34,8 +37,8 @@
                                 <tr>
                                     <th>{{ __("Nombres") }}</th>
                                     <th>{{ __("DNI/RUC") }}</th>
-                                    <th>{{ __("direccion") }}</th>
-                                    <th>{{ __("telefono") }}</th>
+                                    <th>{{ __("dirección") }}</th>
+                                    <th>{{ __("teléfono") }}</th>
                                     <th>{{ __("email") }}</th>
                                     {{-- <th>{{ __("nacimiento") }}</th> --}}
                                     <th>{{ __("Opciones") }}</th>
@@ -266,6 +269,8 @@
 @push('scripts')
 {{-- 
 <script src="https://unpkg.com/@coreui/coreui@3.4.0/dist/js/coreui.bundle.min.js"></script> --}}
+{{-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> --}}
+<script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
@@ -276,6 +281,16 @@
         $('#paterno').prop( "disabled", true );
         $('#materno').prop( "disabled", true );
         
+        $("#button").click(function(){
+            $("#afiliado-table").table2excel({
+            // exclude CSS class
+            exclude:".noExl",
+            name:"Worksheet Name",
+            filename:"clientes Afiliados",//do not include extension
+            fileext:".xls", // file extension
+           //columns : [0,1,2,3,4,5,6,7,8,9,10,11]
+            });
+        });
 
 
         dt = jQuery("#afiliado-table").DataTable({

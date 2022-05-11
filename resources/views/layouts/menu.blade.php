@@ -1,6 +1,6 @@
 <li class="c-sidebar-nav-item">
     <a class="c-sidebar-nav-link c-active" href="{{ route('home') }}">
-        <i class="c-sidebar-nav-icon cil-home"></i>Home
+        <i class="c-sidebar-nav-icon cil-home"></i>Inicio
     </a>
 </li>
 <li class="c-sidebar-nav-item">
@@ -10,7 +10,7 @@
 </li>
 <li class="c-sidebar-nav-item">
     <a class="c-sidebar-nav-link c-active" href="{{ route('vehiculo') }}">
-        <i class="c-sidebar-nav-icon cil-car-alt"></i>Vehiculos
+        <i class="c-sidebar-nav-icon cil-car-alt"></i>Vehículos
     </a>
 </li>
 <li class="c-sidebar-nav-item">
@@ -33,6 +33,11 @@
         <i class="c-sidebar-nav-icon cil-user-unfollow"></i>Accidentados
     </a>
 </li>
+{{-- <li class="c-sidebar-nav-item">
+    <a class="c-sidebar-nav-link c-active" href="{{ route('accidentado') }}">
+        <i class="c-sidebar-nav-icon cil-file"></i>Reportes
+    </a>
+</li> --}}
 <li class="c-sidebar-nav-item">
     <a class="c-sidebar-nav-link c-active" href="{{ route('accidente-gastos') }}">
         <i class="c-sidebar-nav-icon cil-wallet"></i>Accidentes Gastos
