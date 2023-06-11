@@ -51,7 +51,28 @@ Route::get('/hola', function () {
     return($response);
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
+// Ruta de inicio de sesión
+/* Authentication Routes... */
+// Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+// Route::post('login', 'Auth\LoginController@login');
+// Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+  
+// // /* Registration Routes... */
+// // Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+// // Route::post('register', 'Auth\RegisterController@register');
+  
+// /* Password Reset Routes... */
+// Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+// Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+// Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+// Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+  
+// /* Email Verification Routes... */
+// Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+// Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
+// Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -118,7 +139,29 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/getaccidentegastos', 'AccidentadoGastoController@getaccidente')->name('getaccidentegastos');
     Route::resource('/allaccidente-gastos', 'AccidentadoGastoController');
 
-});Auth::routes();
+
+});
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/reporte-afiliados',function () {
+    return view('reportes.ReporteAfiliado');
+})->name('reporte-afiliados');
+
+Route::get('/reporte-siniestros',function () {
+    return view('reportes.ReporteSiniestros');
+})->name('reporte-siniestros');
+
+Route::get('/reporte-contable',function () {
+    return view('reportes.ReporteContable');
+})->name('reporte-contable');
+
+Route::post('/reporte-afiliado-diario', 'ReportController@exportDiario')->name('reporte-afiliado-diario');
+Route::post('/reporte-afiliado-mensual', 'ReportController@exportMensual')->name('reporte-afiliado-mensual');
+Route::post('/reporte-afiliado-anual', 'ReportController@exportAnual')->name('reporte-afiliado-anual');
+Route::get('/getSiniestrosPagados', 'ReportController@siniestrosPagados')->name('getSiniestrosPagados');
+Route::get('/getSiniestrosporPagar', 'ReportController@siniestrosporPagar')->name('getSiniestrosporPagar');
+Route::post('/reporte-contable-diario', 'ReportController@exportContableDiario')->name('reporte-contable-diario');
+Route::post('/reporte-contable-mensual', 'ReportController@exportContableMensual')->name('reporte-contable-mensual');
+Route::post('/reporte-contable-anual', 'ReportController@exportContableAnual')->name('reporte-contable-anual');

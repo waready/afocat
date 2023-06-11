@@ -35,7 +35,6 @@
   --danger: #e55353;
   --light: #ebedef;
   --dark: #636f83;
-  --blue:#3490dc;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -58,7 +57,6 @@
   color: #3c4b64;
   background-color: #ebedef;
   --color: #3c4b64;
-  --blue:#3490dc;
 }
 
 *,
