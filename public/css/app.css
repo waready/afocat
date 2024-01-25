@@ -1439,7 +1439,6 @@ html:not([dir=rtl]) .dropleft .dropdown-toggle-split::before {
   cursor: pointer;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   background-color: transparent;
   border: 1px solid transparent;
@@ -1909,7 +1908,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-transparent:hover {
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .btn-outline-primary {
@@ -4128,8 +4127,7 @@ html:not([dir=rtl]) .card-header-actions {
   float: left;
   width: 100%;
   margin-right: -100%;
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
   transition: transform 0.6s ease-in-out;
 }
 
@@ -4310,7 +4308,6 @@ base-chart.chart {
 canvas {
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
 }
 
@@ -5444,11 +5441,6 @@ html:not([dir=rtl]) .dropleft .dropdown-toggle:empty::after {
 }
 
 .form-control::-moz-placeholder {
-  color: #8a93a2;
-  opacity: 1;
-}
-
-.form-control:-ms-input-placeholder {
   color: #8a93a2;
   opacity: 1;
 }
@@ -8953,7 +8945,6 @@ html:not([dir=rtl]) .list-group-accent .list-group-item.list-group-item-divider:
 .modal-dialog-centered::before {
   display: block;
   height: calc(100vh - 1rem);
-  height: -webkit-min-content;
   height: -moz-min-content;
   height: min-content;
   content: "";
@@ -9083,7 +9074,6 @@ html:not([dir=rtl]) .modal-header .close {
 
   .modal-dialog-centered::before {
     height: calc(100vh - 3.5rem);
-    height: -webkit-min-content;
     height: -moz-min-content;
     height: min-content;
   }
@@ -10248,16 +10238,6 @@ html:not([dir=rtl]) .pagination-sm .page-item:last-child .page-link {
   color: #3c4b64;
 }
 
-@-webkit-keyframes progress-bar-stripes {
-  from {
-    background-position: 1rem 0;
-  }
-
-  to {
-    background-position: 0 0;
-  }
-}
-
 @keyframes progress-bar-stripes {
   from {
     background-position: 1rem 0;
@@ -10302,14 +10282,12 @@ html:not([dir=rtl]) .pagination-sm .page-item:last-child .page-link {
 }
 
 .progress-bar-animated {
-  -webkit-animation: progress-bar-stripes 1s linear infinite;
-          animation: progress-bar-stripes 1s linear infinite;
+  animation: progress-bar-stripes 1s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .progress-bar-animated {
-    -webkit-animation: none;
-            animation: none;
+    animation: none;
   }
 }
 
@@ -11898,10 +11876,6 @@ html:not([dir=rtl]) .c-sidebar.c-sidebar-show.c-sidebar-right {
   color: rgba(255, 255, 255, 0.7);
 }
 
-.c-sidebar .c-sidebar-form .c-form-control:-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
-
 .c-sidebar .c-sidebar-form .c-form-control::placeholder {
   color: rgba(255, 255, 255, 0.7);
 }
@@ -12124,10 +12098,6 @@ html:not([dir=rtl]) .c-sidebar.c-sidebar-light.c-sidebar-right {
 }
 
 .c-sidebar.c-sidebar-light .c-sidebar-form .c-form-control::-moz-placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.c-sidebar.c-sidebar-light .c-sidebar-form .c-form-control:-ms-input-placeholder {
   color: rgba(255, 255, 255, 0.7);
 }
 
@@ -12468,12 +12438,6 @@ html:not([dir=rtl]) .c-sidebar.c-sidebar-light.c-sidebar-right {
   color: #fff;
 }
 
-@-webkit-keyframes spinner-border {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes spinner-border {
   to {
     transform: rotate(360deg);
@@ -12488,25 +12452,13 @@ html:not([dir=rtl]) .c-sidebar.c-sidebar-light.c-sidebar-right {
   border: 0.25em solid currentColor;
   border-right-color: transparent;
   border-radius: 50%;
-  -webkit-animation: spinner-border 0.75s linear infinite;
-          animation: spinner-border 0.75s linear infinite;
+  animation: spinner-border 0.75s linear infinite;
 }
 
 .spinner-border-sm {
   width: 1rem;
   height: 1rem;
   border-width: 0.2em;
-}
-
-@-webkit-keyframes spinner-grow {
-  0% {
-    transform: scale(0);
-  }
-
-  50% {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 @keyframes spinner-grow {
@@ -12528,8 +12480,7 @@ html:not([dir=rtl]) .c-sidebar.c-sidebar-light.c-sidebar-right {
   background-color: currentColor;
   border-radius: 50%;
   opacity: 0;
-  -webkit-animation: spinner-grow 0.75s linear infinite;
-          animation: spinner-grow 0.75s linear infinite;
+  animation: spinner-grow 0.75s linear infinite;
 }
 
 .spinner-grow-sm {
@@ -14054,16 +14005,6 @@ html:not([dir=rtl]) .c-switch-label .c-switch-slider::after {
   }
 }
 
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -14075,10 +14016,8 @@ html:not([dir=rtl]) .c-switch-label .c-switch-slider::after {
 }
 
 .fade-in {
-  -webkit-animation-name: fadeIn;
-          animation-name: fadeIn;
-  -webkit-animation-duration: 1s;
-          animation-duration: 1s;
+  animation-name: fadeIn;
+  animation-duration: 1s;
 }
 
 .c-wrapper {
@@ -14308,7 +14247,6 @@ html:not([dir=rtl]) .list-inline {
 }
 
 .c-wrapper:not(.c-wrapper-fluid) .c-header-fixed {
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
 }
@@ -14325,7 +14263,6 @@ html:not([dir=rtl]) .list-inline {
 }
 
 .c-wrapper:not(.c-wrapper-fluid) .c-footer-fixed {
-  position: -webkit-sticky;
   position: sticky;
   bottom: 0;
 }
@@ -16364,21 +16301,18 @@ html:not([dir=rtl]) .float-right {
 .user-select-all {
   -webkit-user-select: all !important;
      -moz-user-select: all !important;
-      -ms-user-select: all !important;
           user-select: all !important;
 }
 
 .user-select-auto {
   -webkit-user-select: auto !important;
      -moz-user-select: auto !important;
-      -ms-user-select: auto !important;
           user-select: auto !important;
 }
 
 .user-select-none {
   -webkit-user-select: none !important;
      -moz-user-select: none !important;
-      -ms-user-select: none !important;
           user-select: none !important;
 }
 
@@ -16407,7 +16341,6 @@ html:not([dir=rtl]) .float-right {
 }
 
 .position-sticky {
-  position: -webkit-sticky !important;
   position: sticky !important;
 }
 
@@ -16427,9 +16360,8 @@ html:not([dir=rtl]) .float-right {
   z-index: 1030;
 }
 
-@supports ((position: -webkit-sticky) or (position: sticky)) {
+@supports (position: sticky) {
   .sticky-top {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020;
